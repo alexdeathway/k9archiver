@@ -103,7 +103,7 @@ GitHub.sublime-settings
 .history
 
 #secret Keys
-crm/secret_keys.py
+archiver/secret_keys.py
 
 #.env file
 .env

@@ -18,7 +18,7 @@
     }
     header.stick{
       width: 100%;
-      background-color: #000E29;
+      background-color: #FDE68A;
     }
   </style>
   <script>
@@ -44,10 +44,10 @@
       </a>
       <nav
         class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-        <a href="{% url 'home' %}" class="mr-5 hover:text-white">Home</a>
-        <a href="" class="mr-5 hover:text-white">Explore</a>
-        <a class="mr-5 hover:text-white">PC parts</a>
-        <a class="mr-5 hover:text-white">Fourth Link</a>
+        <a href="{% url 'home' %}" class="mr-5 text-gray-900  hover:text-yellow-600">Home</a>
+        <a href="" class="mr-5 text-gray-900  hover:text-yellow-500">Explore</a>
+        <a class="mr-5 text-gray-900  hover:text-yellow-600">PC parts</a>
+        <a class="mr-5 text-gray-900  hover:text-yellow-600">Fourth Link</a>
       </nav>
       {% comment %} <a href="{% url 'signup' %}">
         <button class="inline-flex text-white border-0 py-3 px-12 focus:outline-none text-md"
@@ -55,9 +55,9 @@
       </a> {% endcomment %}
       {% if user.is_authenticated %}
         <div class="flex space-x-2">
-        <a href={% url 'users:profile' user.username %}>
+        {% comment %} <a href={% url 'users:profile' user.username %}> {% endcomment %}
             <div class="relative w-10 h-10">
-              <img class="rounded-full border-2 border-gray-200 shadow-sm" src="" alt="user image" />
+              <img class="rounded-full border-2 border-gray-200 shadow-sm" src="https://thispersondoesnotexist.com/image" alt="user image" />
             <div class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>
          </div>
         </a> 
@@ -72,9 +72,9 @@
         </a>  
         </div>   
       {% else %}
-      <a href="{% url 'signup' %}" class="mr-5 hover:text-white">Sign up</a>
+      <a href="{% url 'signup' %}" class="mr-5 text-gray-900  hover:text-yellow-600">Sign up</a>
       <a href="{% url 'login' %}">
-      <button class="inline-flex items-center bg-gray-300 border-0 py-1 px-3 text-blue-500 focus:outline-none hover:bg-gray-600 rounded text-base mt-4 md:mt-0">Login
+      <button class="inline-flex items-center bg-yellow-300 border-0 py-1 px-3 text-yellow-600 focus:outline-none hover:text-yellow-200 rounded text-base mt-4 md:mt-0">Login
       <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
         <path d="M5 12h14M12 5l7 7-7 7"></path>
       </svg>
