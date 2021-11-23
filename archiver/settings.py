@@ -21,21 +21,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-""" 
+ 
 try:
     from .secret_keys import SECRET_KEY
 except ModuleNotFoundError:
     SETTINGS_DIR=os.path.abspath(os.path.dirname(__file__))
     generate_secret_key(os.path.join(SETTINGS_DIR,"secret_keys.py"))
     from .secret_keys import SECRET_KEY 
-"""
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+
+#SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
-
+#DEBUG = os.getenv('DEBUG')
+#SECRET_KEY=""
+DEBUG=True
 ALLOWED_HOSTS = ["*"]
 
 
