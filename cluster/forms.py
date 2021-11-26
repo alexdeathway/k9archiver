@@ -28,3 +28,18 @@ class NoteCreationForm(forms.ModelForm):
             "body",
             "cluster",
         ]
+
+class NoteUpdateForm(forms.ModelForm):
+    
+    def __init__(self,*args, **kwargs):
+            request=kwargs.pop("request")
+            cluster=ClusterModel.objects.filter(owner=request.user)
+            super(NoteUpdateForm,self).__init__(*args,**kwargs)
+            self.fields["cluster"]=forms.ModelChoiceField(queryset=cluster)
+
+    class Meta:
+        model = NoteModel
+        fields = [
+            "name",
+            "body",
+        ]

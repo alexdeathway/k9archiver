@@ -1,6 +1,7 @@
+from django.http import Http404
 from django.shortcuts import render, reverse 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import ClusterModel
+from .models import ClusterModel, NoteModel
 from django.views.generic import (
                                     TemplateView,
                                     ListView,
@@ -8,7 +9,7 @@ from django.views.generic import (
                                     CreateView
                                 )  
 from django.views.generic.edit import UpdateView
-from .forms import ClusterCreationForm,NoteCreationForm
+from .forms import ClusterCreationForm, NoteCreationForm, NoteUpdateForm
 # Create your views here.
 
 class ClusterCreateView(LoginRequiredMixin,CreateView):
@@ -27,7 +28,7 @@ class ClusterCreateView(LoginRequiredMixin,CreateView):
 
 class ClusterListView(ListView):
     template_name = "cluster/cluster_list.html"
-    context_object_name="cluster"
+    context_object_name="clusters"
     queryset=ClusterModel.objects.all()
 
 class ClusterDetailView(DetailView):
@@ -41,10 +42,11 @@ class ClusterDetailView(DetailView):
         context["notes"]=notes
         return context
 
-class NoteCreateView(CreateView):
+class NoteCreateView(LoginRequiredMixin,CreateView):
 
     template_name="cluster/note_create.html"
     form_class=NoteCreationForm
+
 
     def get_form_kwargs(self,**kwargs):
         kwargs=super(NoteCreateView,self).get_form_kwargs(**kwargs)
@@ -52,6 +54,7 @@ class NoteCreateView(CreateView):
             "request":self.request
         })
         return kwargs
+    
     
     def form_valid(self,form):
         note = form.save(commit=False)
@@ -63,10 +66,40 @@ class NoteCreateView(CreateView):
         return reverse("cluster:clusterlist")
 
 class NoteDetailView(DetailView):
+
+    model=NoteModel
+    template_name="cluster/note_detail.html"
+    
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        cluster_slug = self.kwargs.get('cluster', None)
+        note_slug = self.kwargs.get('note', None)
+        try:
+            obj = queryset.objects.get(title=note_slug, cluster=cluster_slug)
+        except queryset.model.DoesNotExist:
+            raise Http404("Object not found")
+        return obj    
+
     pass
 
 class NoteUpdateView(UpdateView):
-    pass
+    template_name="cluster/note_update.html"
+    model=NoteModel
+    form_class=NoteUpdateForm
+    slug_url_kwarg="title"
+    slug_field="title"
+    
+
+    def dispatch(self, request, *args, **kwargs):
+        note=self.get_object()
+        if note.author != self.request.user:
+            raise Http404("Knock knock , Not you!")
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_success_url(self):
+        return reverse("clusterlist")
         
     
 
