@@ -5,8 +5,28 @@ class ClusterCreationForm(forms.ModelForm):
     
     class Meta:
         model = ClusterModel
+        
+        labels={
+            "cluster_name": "Cluster Name",
+        }
+        
         fields = [
-            "name",
+            "cluster_name",
+            "code_name",
+            "permission",
+        ]
+
+class ClusterUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model = ClusterModel
+        
+        labels={
+            "cluster_name": "Cluster Name",
+        }
+        
+        fields = [
+            "cluster_name",
             "code_name",
             "permission",
         ]
@@ -23,7 +43,7 @@ class NoteCreationForm(forms.ModelForm):
     class Meta:
         model = NoteModel
         fields = [
-            "name",
+            "title",
             "code",
             "body",
             "cluster",
@@ -31,15 +51,9 @@ class NoteCreationForm(forms.ModelForm):
 
 class NoteUpdateForm(forms.ModelForm):
     
-    def __init__(self,*args, **kwargs):
-            request=kwargs.pop("request")
-            cluster=ClusterModel.objects.filter(owner=request.user)
-            super(NoteUpdateForm,self).__init__(*args,**kwargs)
-            self.fields["cluster"]=forms.ModelChoiceField(queryset=cluster)
-
     class Meta:
         model = NoteModel
         fields = [
-            "name",
+            "title",
             "body",
         ]

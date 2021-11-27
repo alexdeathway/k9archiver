@@ -10,7 +10,7 @@ class ClusterModel(models.Model):
         ("PO","Participant Only"),
         ("p","Public"),
     )        
-    name=models.CharField(max_length=100)
+    cluster_name=models.CharField(max_length=100)
     code_name=models.CharField(max_length=20,unique=True)
     owner=models.ForeignKey(User, on_delete=models.CASCADE,related_name="CluseterModel_User")
     description=models.CharField(max_length=600,default="Empty")
@@ -24,7 +24,7 @@ class ClusterModel(models.Model):
 
 class NoteModel(models.Model):
     author=models.ForeignKey(User,on_delete=models.CASCADE,related_name="NoteModel_User")
-    name=models.CharField(max_length=50)
+    title=models.CharField(max_length=50)
     code=models.CharField(max_length=20,unique=True)
     body=models.CharField(max_length=2000,default="Empty")
     cluster=models.ForeignKey("ClusterModel", on_delete=models.CASCADE,related_name="NoteModel_ClusterModel")

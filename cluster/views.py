@@ -9,7 +9,7 @@ from django.views.generic import (
                                     CreateView
                                 )  
 from django.views.generic.edit import UpdateView
-from .forms import ClusterCreationForm, NoteCreationForm, NoteUpdateForm
+from .forms import ClusterCreationForm,ClusterUpdateForm, NoteCreationForm, NoteUpdateForm
 # Create your views here.
 
 class ClusterCreateView(LoginRequiredMixin,CreateView):
@@ -35,6 +35,8 @@ class ClusterDetailView(DetailView):
     model=ClusterModel
     template_name="cluster/cluster_detail.html"
     context_object_name="cluster"
+    slug_url_kwarg="code_name"
+    slug_field="code_name"
 
     def get_context_data(self,**kwargs):
         context=super(ClusterDetailView,self).get_context_data(**kwargs)
@@ -42,11 +44,28 @@ class ClusterDetailView(DetailView):
         context["notes"]=notes
         return context
 
+class ClusterUpdateView(LoginRequiredMixin,UpdateView):
+    template_name="cluster/cluster_update.html"
+    model=ClusterModel
+    form_class=ClusterUpdateForm
+    slug_url_kwarg="code_name"
+    slug_field="code_name"
+    
+
+    def dispatch(self, request, *args, **kwargs):
+        cluster=self.get_object()
+        if cluster.owner != self.request.user:
+            raise Http404("Knock knock , Not you!")
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_success_url(self):
+        return reverse("cluster:clusterlist")
+
+
 class NoteCreateView(LoginRequiredMixin,CreateView):
 
     template_name="cluster/note_create.html"
     form_class=NoteCreationForm
-
 
     def get_form_kwargs(self,**kwargs):
         kwargs=super(NoteCreateView,self).get_form_kwargs(**kwargs)
@@ -54,13 +73,12 @@ class NoteCreateView(LoginRequiredMixin,CreateView):
             "request":self.request
         })
         return kwargs
-    
-    
+       
     def form_valid(self,form):
         note = form.save(commit=False)
         note.author = self.request.user
         note.save()
-        return super(ClusterCreateView,self).form_valid(form)
+        return super(NoteCreateView,self).form_valid(form)
 
     def get_success_url(self):
         return reverse("cluster:clusterlist")
@@ -82,7 +100,7 @@ class NoteDetailView(DetailView):
             raise Http404("Object not found")
         return obj    
 
-    pass
+    
 
 class NoteUpdateView(UpdateView):
     template_name="cluster/note_update.html"
