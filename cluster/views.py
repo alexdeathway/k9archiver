@@ -1,3 +1,5 @@
+from django.core.checks.messages import Error
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render, reverse 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -87,17 +89,34 @@ class NoteDetailView(DetailView):
 
     model=NoteModel
     template_name="cluster/note_detail.html"
+    context_object_name="note"
     
     def get_object(self, queryset=None):
+        """
         if queryset is None:
             queryset = self.get_queryset()
+            
 
         cluster_slug = self.kwargs.get('cluster', None)
-        note_slug = self.kwargs.get('note', None)
+        code_slug = self.kwargs.get('code', None)
+
         try:
-            obj = queryset.objects.get(title=note_slug, cluster=cluster_slug)
-        except queryset.model.DoesNotExist:
-            raise Http404("Object not found")
+            obj = queryset.get(code=code_slug, cluster__code_name =cluster_slug)
+            
+        except ObjectDoesNotExist:
+            raise Http404(f"Object not found ")
+
+        return obj    
+        
+        """                      
+
+        cluster_slug = self.kwargs.get('cluster', None)
+        code_slug = self.kwargs.get('code', None)
+        try:
+            obj = NoteModel.objects.get(code=code_slug, cluster__code_name =cluster_slug)        
+        except ObjectDoesNotExist: 
+            raise Http404(f"Object not found ")
+        
         return obj    
 
     

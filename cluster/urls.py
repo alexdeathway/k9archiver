@@ -6,6 +6,7 @@ from .views import (
                     ClusterUpdateView,
                     NoteCreateView,
                     NoteUpdateView,
+                    NoteDetailView,
                     )
 
 
@@ -17,5 +18,6 @@ urlpatterns = [
     path("<slug:code_name>/",ClusterDetailView.as_view(),name="clusterdetail"),
     path("<slug:code_name>/update/",ClusterUpdateView.as_view(),name="clusterupdate"),
     path("note/create/",NoteCreateView.as_view(),name="notecreate"),
+    path("<slug:cluster>/<slug:code>/",NoteDetailView.as_view(),name="notedetail"),
     
 ]
