@@ -51,6 +51,13 @@ class NoteCreationForm(forms.ModelForm):
 
 class NoteUpdateForm(forms.ModelForm):
     
+    def __init__(self,*args, **kwargs):
+            request=kwargs.pop("request")
+            note=kwargs.pop('instance')
+            super(NoteUpdateForm,self).__init__(*args,**kwargs)
+            if request.user == note.cluster.owner:
+                self.fields['is_verified']=forms.BooleanField()
+
     class Meta:
         model = NoteModel
         fields = [

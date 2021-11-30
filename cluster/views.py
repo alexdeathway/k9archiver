@@ -92,7 +92,7 @@ class NoteDetailView(DetailView):
     context_object_name="note"
     
     def get_object(self, queryset=None):
-        """
+       
         if queryset is None:
             queryset = self.get_queryset()
             
@@ -119,24 +119,47 @@ class NoteDetailView(DetailView):
         
         return obj    
 
-    
+         """
 
 class NoteUpdateView(UpdateView):
     template_name="cluster/note_update.html"
     model=NoteModel
     form_class=NoteUpdateForm
-    slug_url_kwarg="title"
-    slug_field="title"
+
+    def get_form_kwargs(self,**kwargs):
+        kwargs=super(NoteUpdateView,self).get_form_kwargs(**kwargs)
+        kwargs.update({
+            "request":self.request    
+        })
+        breakpoint()
+        return kwargs
     
+    def get_object(self, queryset=None):
+       
+        if queryset is None:
+            queryset = self.get_queryset()
+            
+
+        cluster_slug = self.kwargs.get('cluster', None)
+        code_slug = self.kwargs.get('code', None)
+
+        try:
+            obj = queryset.get(code=code_slug, cluster__code_name =cluster_slug)
+            
+        except ObjectDoesNotExist:
+            raise Http404(f"Object not found ")
+
+        return obj  
 
     def dispatch(self, request, *args, **kwargs):
         note=self.get_object()
-        if note.author != self.request.user:
+        requesting_user=self.request.user
+        if requesting_user != note.author and requesting_user != note.cluster.owner:
             raise Http404("Knock knock , Not you!")
         return super().dispatch(request, *args, **kwargs)
     
     def get_success_url(self):
-        return reverse("clusterlist")
+        return reverse("cluster:clusterlist")
         
     
 

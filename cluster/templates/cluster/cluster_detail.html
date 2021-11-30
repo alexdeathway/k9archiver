@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 {% block body %}
 
-</div>
+
 <section class="text-gray-600 body-font">
   <div class="container px-5 py-24 mx-auto">
     <div class="flex flex-col text-center w-full mb-20">
       <h1 class="text-2xl font-medium title-font mb-4 text-gray-900 tracking-widest">{{cluster.cluster_name}}</h1>
       <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{cluster.description}}</p>
+      <div class="h-1 mt-8 mx-36 bg-gray-200 rounded overflow-hidden">
+        <div class="w-24 h-full bg-yellow-500"></div>
+      </div>  
     </div>
+
     <div class="flex flex-wrap -m-4">
     {% for note in notes %}
       <div class="p-4 lg:w-1/2">
@@ -18,7 +22,7 @@
             <h3 class="text-gray-500 mb-3">{{note.author}}</h3>
             <p class="mb-4">{{note.body|slice:":120"}}...</p>
             <span class="inline-flex">
-              <a class="text-gray-500">
+              <a href="{% url 'cluster:notedetail' note.cluster.code_name note.code %}" class="text-gray-500">
                 <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">
                     read
                 </button>
