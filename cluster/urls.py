@@ -7,6 +7,7 @@ from .views import (
                     NoteCreateView,
                     NoteUpdateView,
                     NoteDetailView,
+                    NoteDeleteView,
                     )
 
 
@@ -20,5 +21,6 @@ urlpatterns = [
     path("note/create/",NoteCreateView.as_view(),name="notecreate"),
     path("<slug:cluster>/<slug:code>/",NoteDetailView.as_view(),name="notedetail"),
     path("<slug:cluster>/<slug:code>/update/",NoteUpdateView.as_view(),name="noteupdate"),
+    path("<slug:cluster>/<slug:code>/delete/",NoteDeleteView.as_view(),name="notedelete"),
     
 ]

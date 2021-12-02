@@ -53,7 +53,7 @@ class NoteUpdateForm(forms.ModelForm):
     
     def __init__(self,*args, **kwargs):
             request=kwargs.pop("request")
-            note=kwargs.pop('instance')
+            note=kwargs.get('instance') #avoid using pop here, it will remove instance from request body itself
             super(NoteUpdateForm,self).__init__(*args,**kwargs)
             if request.user == note.cluster.owner:
                 self.fields['is_verified']=forms.BooleanField()
@@ -64,3 +64,5 @@ class NoteUpdateForm(forms.ModelForm):
             "title",
             "body",
         ]
+        
+    

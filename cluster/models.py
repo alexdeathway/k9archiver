@@ -27,7 +27,7 @@ class NoteModel(models.Model):
     title=models.CharField(max_length=50)
     is_verified=models.BooleanField(default=False)
     code=models.CharField(max_length=20,unique=True)
-    body=models.CharField(max_length=2000,default="Empty")
+    body=models.CharField(max_length=15000,default="Empty")
     cluster=models.ForeignKey("ClusterModel", on_delete=models.CASCADE,related_name="NoteModel_ClusterModel")
 
     def __str__(self):

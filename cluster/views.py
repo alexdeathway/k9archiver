@@ -8,11 +8,12 @@ from django.views.generic import (
                                     TemplateView,
                                     ListView,
                                     DetailView,
-                                    CreateView
+                                    CreateView,
+                                    DeleteView,
+                                    UpdateView
                                 )  
-from django.views.generic.edit import UpdateView
 from .forms import ClusterCreationForm,ClusterUpdateForm, NoteCreationForm, NoteUpdateForm
-# Create your views here.
+
 
 class ClusterCreateView(LoginRequiredMixin,CreateView):
     template_name="cluster/cluster_create.html"
@@ -131,7 +132,7 @@ class NoteUpdateView(UpdateView):
         kwargs.update({
             "request":self.request    
         })
-        breakpoint()
+       
         return kwargs
     
     def get_object(self, queryset=None):
@@ -160,6 +161,37 @@ class NoteUpdateView(UpdateView):
     
     def get_success_url(self):
         return reverse("cluster:clusterlist")
+
+class NoteDeleteView(DeleteView):
+    template_name="cluster/note_delete.html"
+    #optimization required for queryset
+    queryset=NoteModel.objects.all() 
+    
+
+    def get_object(self):
+               
+        cluster_slug = self.kwargs.get('cluster', None)
+        code_slug = self.kwargs.get('code', None)
+
+        try:
+            obj = NoteModel.objects.get(code=code_slug, cluster__code_name =cluster_slug)
+            
+        except ObjectDoesNotExist:
+            raise Http404(f"Object not found ")
+        return obj
+
+
+    def dispatch(self, request, *args, **kwargs):
+        note=self.get_object()
+        requesting_user=self.request.user
+        if requesting_user != note.author and requesting_user != note.cluster.owner:
+            raise Http404("Knock knock , Not you!")
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_success_url(self):
+        return reverse("cluster:clusterlist")      
+
+
         
     
 
