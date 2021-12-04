@@ -1,5 +1,6 @@
 from django.core.checks.messages import Error
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.fields import SlugField
 from django.http import Http404
 from django.shortcuts import render, reverse 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,7 +13,7 @@ from django.views.generic import (
                                     DeleteView,
                                     UpdateView
                                 )  
-from .forms import ClusterCreationForm,ClusterUpdateForm, NoteCreationForm, NoteUpdateForm
+from .forms import ClusterCreationForm,ClusterUpdateForm, NoteCreationForm, NoteUpdateForm, ClusterNoteCreationForm
 
 
 class ClusterCreateView(LoginRequiredMixin,CreateView):
@@ -64,6 +65,22 @@ class ClusterUpdateView(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         return reverse("cluster:clusterlist")
 
+class ClusterDeleteView(DeleteView):
+    template_name="cluster/cluster_delete.html"
+    model=ClusterModel
+    slug_url_kwarg="code_name"
+    slug_field="code_name"
+
+    def dispatch(self, request, *args, **kwargs):
+        cluster=self.get_object()
+        if cluster.owner != self.request.user:
+            raise Http404("Knock knock , Not you!")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse("cluster:clusterlist")
+
+    
 
 class NoteCreateView(LoginRequiredMixin,CreateView):
 
@@ -164,9 +181,8 @@ class NoteUpdateView(UpdateView):
 
 class NoteDeleteView(DeleteView):
     template_name="cluster/note_delete.html"
-    #optimization required for queryset
-    queryset=NoteModel.objects.all() 
-    
+    #optimization required for queryset object retrive
+    model=NoteModel
 
     def get_object(self):
                
@@ -189,7 +205,31 @@ class NoteDeleteView(DeleteView):
         return super().dispatch(request, *args, **kwargs)
     
     def get_success_url(self):
-        return reverse("cluster:clusterlist")      
+        return reverse("cluster:clusterlist")
+
+class ClusterNoteCreateView(CreateView):
+    template_name="cluster/note_create.html"
+    form_class=ClusterNoteCreationForm
+    slug_url_kwarg = 'code_name'
+
+    def get_form_kwargs(self,**kwargs):
+        kwargs=super(ClusterNoteCreateView,self).get_form_kwargs(**kwargs)
+        cluster_code_name=self.kwargs.get("code_name")
+        kwargs.update({
+            "cluster_code_name":cluster_code_name 
+        })
+       
+        return kwargs
+
+    def form_valid(self,form):
+        note = form.save(commit=False)
+        note.author = self.request.user
+        note.save()
+        return super(ClusterNoteCreateView,self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("cluster:clusterlist")
+            
 
 
         
