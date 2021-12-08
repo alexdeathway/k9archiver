@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block body %}
+<div class="min-h-screen flex justify-center p-20 bg-gray-50 text-white px-4 sm:px-6 lg:px-8">
+<p>you sure, you want to delete ?</p>   
+    <form method="POST" enctype="multipart/form-data" >
+
+{% csrf_token %}
+{{ form|crispy }}
+<button class="text-yellow-500" type="submit" value="Submit">Submit</button>
+</form>
+</div>
+{% endblock body %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="p-16">
+    <div class="p-8 bg-white shadow mt-24">
+      <div class="grid grid-cols-1 md:grid-cols-3">
+
+        <div class="relative">
+          <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+    </svg>
+          </div>
+        </div>
+     
+        <div class="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
+          <div class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
+            <div>
+              <p class="font-bold text-gray-700 text-xl">{{notes.count}}</p>
+              <p class="text-gray-400">Contribution</p>
+            </div>
+            <div>
+                 <p class="font-bold text-gray-700 text-xl">{{organisations.count}}</p>
+              <p class="text-gray-400">Clusters</p>
+            </div>
+                <div>
+                 <p class="font-bold text-gray-700 text-xl">89</p>
+              <p class="text-gray-400">Contributions</p>
+            </div>
+          </div>  
+        </div>
+      </div>
+    
+      <div class="mt-20 text-center border-b pb-12">
+        <h1 class="text-4xl font-medium text-gray-700">{{userprofile.username}}, <span class="font-light text-gray-500">27</span></h1>
+        <p class="font-light text-gray-600 mt-3"><span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+          <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+         </svg>
+        </span>contributer</p>             
+
+      </div>
+
+     
+      
+    
+      <div class="mt-12 flex flex-col justify-center">
+        <p class="text-gray-600 text-center font-light lg:px-16">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:
+
+          “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+        <button>
+        </div>    
+    
+    
+        {% comment %} user notes here    {% endcomment %}
+
+    <div class="flex flex-wrap pt-8 -m-4">
+      {% for note in notes %}
+        <div class="p-4 lg:w-1/2">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="team" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="https://dummyimage.com/206x206">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">{{note.title}}</h2>
+              <h3 class="text-gray-500 mb-3">{{note.author}}</h3>
+              <p class="mb-4">{{note.body|slice:":120"}}...</p>
+              <span class="inline-flex">
+                <a href="{% url 'cluster:notedetail' note.cluster.code_name note.code %}" class="text-gray-500">
+                  <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">
+                      read
+                  </button>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+
+      </div>
+    
+
+      
+    </div>
+    </div>
+{% endblock body %}
