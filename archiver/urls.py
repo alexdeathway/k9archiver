@@ -29,7 +29,7 @@ from django.contrib.auth.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',Home.as_view(),name="home"),
-   # path('users/',include('users.urls',namespace='users')),
+    path('users/',include('users.urls',namespace='users')),
     path('cluster/',include('cluster.urls',namespace='cluster')),
     path('login/',LoginView.as_view(),name="login"),
     path('logout/',LogoutView.as_view(),name="logout"),

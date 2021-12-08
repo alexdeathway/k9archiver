@@ -50,22 +50,22 @@ class NoteCreationForm(forms.ModelForm):
         ]
 
 class NoteUpdateForm(forms.ModelForm):
-
-   
     
     def __init__(self,*args, **kwargs):
             request=kwargs.pop("request")
             note=kwargs.get('instance') #avoid using pop here, it will remove instance from request body itself
             super(NoteUpdateForm,self).__init__(*args,**kwargs)
             if request.user == note.cluster.owner:
-                self.fields['is_verified']=forms.BooleanField(initial=note.is_verified)
-
+                self.fields["is_verified"]=forms.ModelBooleanField()
+            
     class Meta:
         model = NoteModel
         fields = [
             "title",
             "body",
         ]
+        
+        
 
 class ClusterNoteCreationForm(forms.ModelForm):
     
@@ -84,6 +84,3 @@ class ClusterNoteCreationForm(forms.ModelForm):
             "body",
             "cluster",
         ]
-
-        
-    

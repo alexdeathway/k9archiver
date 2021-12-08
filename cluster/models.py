@@ -34,3 +34,5 @@ class NoteModel(models.Model):
         return f"{self.code}"
 
 
+
+
