@@ -1,10 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render,reverse
 from django.contrib.auth import get_user_model
-from django.views.generic import CreateView,TemplateView
+from django.views.generic import CreateView,TemplateView,UpdateView
 
 from django.http import Http404
 from cluster.models import NoteModel,ClusterModel
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm,UserUpdateForm
 
 
 User=get_user_model()
@@ -32,5 +33,23 @@ class UserProfileView(TemplateView):
         context["notes"]=notes
         context["organisations"]=organisations
         return context
+
+class UserProfileUpdateView(LoginRequiredMixin,UpdateView):
+    template_name="users/user_update.html"
+    #form_class=UserUpdateForm
+    model=User
+    form_class=UserUpdateForm
+    slug_url_kwarg="username"
+    slug_field="username"
+    
+    def dispatch(self, request, *args, **kwargs):
+        profile=self.get_object()
+        if profile != self.request.user:
+            raise Http404("Knock knock , Not you!")
+        return super().dispatch(request, *args, **kwargs)
+    
+
+    def get_success_url(self):
+        return reverse("home")
     
     

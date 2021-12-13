@@ -74,6 +74,10 @@ class NoteUpdateForm(forms.ModelForm):
         fields = [
             "title",
             "body",
+            "is_verified",
+        ]
+        exclude=[
+            "is_verified",
         ]
  
 
@@ -117,7 +121,7 @@ class ClusterOwnerNoteUpdateForm(forms.ModelForm):
         fields = [
             "title",
             "body",
-            "is_verified"
+            "is_verified",
         ]
  
 

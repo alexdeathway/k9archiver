@@ -158,6 +158,7 @@ class NoteUpdateView(UpdateView):
     #     })
        
     #     return kwargs
+
     
     def get_object(self, queryset=None):
        
@@ -174,6 +175,13 @@ class NoteUpdateView(UpdateView):
 
         return obj  
 
+    def form_valid(self,form):
+        note=form.save(commit=False)
+        note.is_verified=False
+        note.is_verified_updated=True
+        note.save()
+        return super(NoteUpdateView,self).form_valid(form)
+
     def dispatch(self, request, *args, **kwargs):
         note=self.get_object()
         requesting_user=self.request.user
@@ -181,6 +189,7 @@ class NoteUpdateView(UpdateView):
             raise Http404("Knock knock , Not you!")
         return super().dispatch(request, *args, **kwargs)
     
+
     def get_success_url(self):
         return reverse("cluster:clusterlist")
 
@@ -212,7 +221,7 @@ class NoteDeleteView(DeleteView):
     def get_success_url(self):
         return reverse("cluster:clusterlist")
 
-class ClusterNoteCreateView(CreateView):
+class ClusterNoteCreateView(LoginRequiredMixin,CreateView):
     template_name="cluster/note_create.html"
     form_class=ClusterNoteCreationForm
     slug_url_kwarg = 'code_name'
