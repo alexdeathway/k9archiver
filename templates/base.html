@@ -43,11 +43,11 @@
         <span class="ml-3 text-xl ">K9 Archiver</span>
       </a>
       <nav
-        class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-        <a href="{% url 'home' %}" class="mr-5 text-gray-900  hover:text-yellow-600">Home</a>
-        <a href="{% url 'cluster:clusterlist' %}" class="mr-5 text-gray-900  hover:text-yellow-500">Explore</a>
-        <a href="{% url 'cluster:clustercreate' %}" class="mr-5 text-gray-900  hover:text-yellow-600">Create Cluster</a>
-        <a href="{% url 'cluster:notecreate' %}" class="mr-5 text-gray-900  hover:text-yellow-600">Create Note</a>
+        class="md:ml-auto md:mr-auto flex flex-wrap items-center font-medium text-base justify-center">
+        <a href="{% url 'home' %}" class="mr-5 text-gray-600  hover:text-yellow-600">Home</a>
+        <a href="{% url 'cluster:clusterlist' %}" class="mr-5 text-gray-600  hover:text-yellow-500">Explore</a>
+        <a href="{% url 'cluster:clustercreate' %}" class="mr-5 text-gray-600  hover:text-yellow-600">Create Cluster</a>
+        <a href="{% url 'cluster:notecreate' %}" class="mr-5 text-gray-600  hover:text-yellow-600">Create Note</a>
       </nav>
       {% comment %} <a href="{% url 'signup' %}">
         <button class="inline-flex text-white border-0 py-3 px-12 focus:outline-none text-md"
@@ -55,7 +55,7 @@
       </a> {% endcomment %}
       {% if user.is_authenticated %}
         <div class="flex space-x-2">
-        {% comment %} <a href={% url 'users:profile' user.username %}> {% endcomment %}
+        <a href={% url 'users:profile' user.username %}>
             <div class="relative w-10 h-10">
               <img class="rounded-full border-2 border-gray-200 shadow-sm" src="https://thispersondoesnotexist.com/image" alt="user image" />
             <div class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>

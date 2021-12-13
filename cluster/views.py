@@ -13,7 +13,14 @@ from django.views.generic import (
                                     DeleteView,
                                     UpdateView
                                 )  
-from .forms import ClusterCreationForm,ClusterUpdateForm, NoteCreationForm, NoteUpdateForm, ClusterNoteCreationForm
+from .forms import (
+                    ClusterCreationForm,
+                    ClusterUpdateForm, 
+                    NoteCreationForm,
+                    NoteUpdateForm, 
+                    ClusterNoteCreationForm,
+                    ClusterOwnerNoteUpdateForm,
+                    ) 
 
 
 class ClusterCreateView(LoginRequiredMixin,CreateView):
@@ -144,20 +151,18 @@ class NoteUpdateView(UpdateView):
     model=NoteModel
     form_class=NoteUpdateForm
 
-    def get_form_kwargs(self,**kwargs):
-        kwargs=super(NoteUpdateView,self).get_form_kwargs(**kwargs)
-        kwargs.update({
-            "request":self.request    
-        })
+    # def get_form_kwargs(self,**kwargs):
+    #     kwargs=super(NoteUpdateView,self).get_form_kwargs(**kwargs)
+    #     kwargs.update({
+    #         "request":self.request    
+    #     })
        
-        return kwargs
+    #     return kwargs
     
     def get_object(self, queryset=None):
        
         if queryset is None:
-            queryset = self.get_queryset()
-            
-
+            queryset = self.get_queryset()            
         cluster_slug = self.kwargs.get('cluster', None)
         code_slug = self.kwargs.get('code', None)
 
@@ -172,7 +177,7 @@ class NoteUpdateView(UpdateView):
     def dispatch(self, request, *args, **kwargs):
         note=self.get_object()
         requesting_user=self.request.user
-        if requesting_user != note.author and requesting_user != note.cluster.owner:
+        if requesting_user != note.author:
             raise Http404("Knock knock , Not you!")
         return super().dispatch(request, *args, **kwargs)
     
@@ -227,6 +232,45 @@ class ClusterNoteCreateView(CreateView):
         note.save()
         return super(ClusterNoteCreateView,self).form_valid(form)
 
+    def get_success_url(self):
+        return reverse("cluster:clusterlist")
+
+
+class ClusterOwnerNoteUpdateView(UpdateView):
+    template_name="cluster/note_update.html"
+    model=NoteModel
+    form_class=ClusterOwnerNoteUpdateForm
+
+    # def get_form_kwargs(self,**kwargs):
+    #     kwargs=super(NoteUpdateView,self).get_form_kwargs(**kwargs)
+    #     kwargs.update({
+    #         "request":self.request    
+    #     })
+       
+    #     return kwargs
+    
+    def get_object(self, queryset=None):
+       
+        if queryset is None:
+            queryset = self.get_queryset()            
+        cluster_slug = self.kwargs.get('cluster', None)
+        code_slug = self.kwargs.get('code', None)
+
+        try:
+            obj = queryset.get(code=code_slug, cluster__code_name =cluster_slug)
+            
+        except ObjectDoesNotExist:
+            raise Http404(f"Object not found ")
+
+        return obj  
+
+    def dispatch(self, request, *args, **kwargs):
+        note=self.get_object()
+        requesting_user=self.request.user
+        if requesting_user != note.cluster.owner:
+            raise Http404("Knock knock , Not you!")
+        return super().dispatch(request, *args, **kwargs)
+    
     def get_success_url(self):
         return reverse("cluster:clusterlist")
             
