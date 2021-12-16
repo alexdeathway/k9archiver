@@ -1,33 +1,57 @@
 {% extends 'base.html' %}
 {% block body %}
+{% load static %}
 
-{% comment %} this is artical {% endcomment %}
+{% comment %} this is home upper {% endcomment %}
+
+<section class="text-gray-600 body-font">
+  <div class="container mx-auto flex px-24 pt-32 md:flex-row flex-col items-center">
+    <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+      <img class="object-cover object-center rounded" alt="hero" src={% static 'archiver/assets/homepage.jpg' %}>
+    </div>
+    <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+      <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Archive the world
+        <br class="hidden lg:inline-block">
+      </h1>
+      <p class="mb-8 leading-relaxed">Lets collect all events and happening at one place in one insight.</p>
+      <div class="flex justify-center">
+        <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 {% comment %} this is timeline section {% endcomment %}
+
+
 <section class="text-gray-600 body-font">
-  <div class="container px-5 py-24 mx-auto flex flex-wrap">
-    {% for note in latest_additions %} 
-    <div class="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-      <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
-        <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
-      </div>
-      <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-yellow-500 text-white relative z-10 title-font font-medium text-sm">1</div>
-      <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
-        <div class="flex-shrink-0 w-24 h-24 bg-yellow-100 text-yellow-500 rounded-full inline-flex items-center justify-center">
-          {% comment %} <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-12 h-12" viewBox="0 0 24 24">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          </svg> {% endcomment %}
+  <div class=" container px-5 py-24 mx-auto flex flex-wrap">
+    <div class="flex flex-wrap w-full">
+      <div class="lg:w-2/5 md:w-1/2 md:pr-10 py-18 md:py-6">
+
+        {% for note in latest_additions %}   
+        <div class="flex relative pb-12">
+          <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+            <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+          </div>
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <div class="flex-grow pl-4">
+            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">New Note</h2>
+            <p class="leading-relaxed">
+              <span class="text-green-700 bg-green-100 rounded-md p-1 ">#{{note.author}}</span> created <span class="text-purple-700 bg-purple-100 rounded-md p-1">#{{note.title}}</span> in <span class="text-green-700 bg-blue-100 rounded-md p-1 ">#{{note.cluster}}</span> .
+            </p>
+          </div>
         </div>
-        <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
-          <h2 class="font-medium title-font text-gray-900 mb-1 text-xl">{{note.cluster.cluster_name}}</h2>
-          <p class="leading-relaxed">
-            <span class="text-green-700 bg-green-100 rounded-md p-1 ">#{{note.author}}</span> created <span class="text-purple-700 bg-purple-100 rounded-md p-1">#{{note.title}}</span> in this cluster.
-          </p>
-        </div>
-      </div>
+      {% endfor %}  
+
     </div>
-    {% endfor %}
+      <img class="lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12" src="https://dummyimage.com/1200x500" alt="step">
+    </div>
   </div>
 </section>
 

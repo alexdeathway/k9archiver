@@ -7,8 +7,8 @@ User=get_user_model()
 
 class ClusterModel(models.Model):
     Permission_level=(
-        ("PO","Participant Only"),
         ("p","Public"),
+        ("PO","Participant Only"),       
     )        
     cluster_name=models.CharField(max_length=100)
     code_name=models.CharField(max_length=20,unique=True)
@@ -25,6 +25,7 @@ class ClusterModel(models.Model):
 class NoteModel(models.Model):
     author=models.ForeignKey(User,on_delete=models.CASCADE,related_name="NoteModel_User")
     title=models.CharField(max_length=50)
+    cover=models.ImageField(upload_to="note_cover", height_field=None, width_field=None, max_length=None)
     is_verified=models.BooleanField(default=False)
     is_verified_updated=models.BooleanField(default=False)
     code=models.CharField(max_length=20,unique=True)
