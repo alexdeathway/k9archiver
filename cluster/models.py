@@ -35,6 +35,18 @@ class NoteModel(models.Model):
     def __str__(self):
         return f"{self.code}"
 
+class NoteEventModel(models.Model):
+    Event_list=(
+        ("created","created"),
+        ("updated","updated"),
+        ("approved","approved"),
+    )
 
+    event_model=models.ForeignKey(NoteModel ,on_delete=models.CASCADE,related_name="NoteEventModel_NoteModel")
+    event_name=models.CharField(choices=Event_list, max_length=20)
+    event_by=models.ForeignKey(User,on_delete=models.CASCADE,related_name="NoteEventModel_User")
+
+    def __str__(self):
+        return f"{self.event_model} {self.event_name} by {self.event_by} "
 
 

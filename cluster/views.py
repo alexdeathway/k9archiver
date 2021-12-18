@@ -4,7 +4,7 @@ from django.db.models.fields import SlugField
 from django.http import Http404
 from django.shortcuts import render, reverse 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import ClusterModel, NoteModel
+from .models import ClusterModel, NoteModel,NoteEventModel
 from django.views.generic import (
                                     TemplateView,
                                     ListView,
@@ -105,6 +105,11 @@ class NoteCreateView(LoginRequiredMixin,CreateView):
         note = form.save(commit=False)
         note.author = self.request.user
         note.save()
+        event=NoteEventModel()
+        event.event_by=self.request.user
+        event.event_model=note
+        event.event_name="created"
+        event.save()
         return super(NoteCreateView,self).form_valid(form)
 
     def get_success_url(self):
@@ -180,6 +185,12 @@ class NoteUpdateView(UpdateView):
         note.is_verified=False
         note.is_verified_updated=True
         note.save()
+        if form.has_changed():
+            event=NoteEventModel()
+            event.event_by=self.request.user
+            event.event_model=note
+            event.event_name="updated"
+            event.save()
         return super(NoteUpdateView,self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
@@ -239,6 +250,11 @@ class ClusterNoteCreateView(LoginRequiredMixin,CreateView):
         note = form.save(commit=False)
         note.author = self.request.user
         note.save()
+        event=NoteEventModel()
+        event.event_by=self.request.user
+        event.event_model=note
+        event.event_name="created"
+        event.save()
         return super(ClusterNoteCreateView,self).form_valid(form)
 
     def get_success_url(self):
@@ -271,7 +287,21 @@ class ClusterOwnerNoteUpdateView(UpdateView):
         except ObjectDoesNotExist:
             raise Http404(f"Object not found ")
 
-        return obj  
+        return obj
+
+    def form_valid(self,form):
+        note=form.save(commit=False)
+        note.save()
+        if form.has_changed():
+            event=NoteEventModel()
+            event.event_by=self.request.user
+            event.event_model=note
+            if "is_verified" in form.changed_data:
+                event.event_name="approved"
+            else: 
+                event.event_name="updated"        
+            event.save()
+        return super(ClusterOwnerNoteUpdateView,self).form_valid(form)  
 
     def dispatch(self, request, *args, **kwargs):
         note=self.get_object()
