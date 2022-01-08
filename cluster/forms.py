@@ -107,6 +107,7 @@ class ClusterNoteCreationForm(forms.ModelForm):
         fields = [
             "title",
             "code",
+            "cover",
             "body",
             "cluster",
         ]
