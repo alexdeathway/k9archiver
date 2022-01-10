@@ -2,12 +2,14 @@
 {% load tailwind_filters %}
 
 {% block body %}
-<div class="min-h-screen flex  justify-center bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen flex  justify-center bg-gray-50 py-32 px-4 sm:px-6 lg:px-8">
     <form method="post">
 
 {% csrf_token %}
 {{ form|crispy }}
-<button>login </button>
+<button class="inline-flex items-center bg-yellow-300 border-0 py-1 px-3 mb-1 text-yellow-600 focus:outline-none hover:text-yellow-200 rounded text-base mt-4 md:mt-0">
+	login
+</button>
 <hr/>
 <a href='{% url 'reset-password' %}'>Forgot password? </a>
 

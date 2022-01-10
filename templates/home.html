@@ -26,9 +26,9 @@
 
 
 <section class="text-gray-600 body-font">
-  <div class=" container px-2 py-24 mx-auto flex flex-wrap">
-    <div class="flex flex-wrap w-full">
-      <div class="lg:w-2/5 md:w-1/2 md:pr-10 py-8 border-orange-500 md:py-6">
+  <div class=" container px-2  mx-auto flex flex-wrap">
+    <div class="mt-24 flex flex-wrap w-full">
+      <div class="lg:w-2/5 md:w-1/2 md:pr-10  border-orange-500 md:py-6">
 
         {% for event in latest_events %}   
         <div class="flex relative pb-12">
@@ -36,7 +36,7 @@
             <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
           </div>
           {% if event.event_name == 'created' %}
-          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-50 inline-flex items-center justify-center text-yellow-300 border-gray-300 relative z-10">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
@@ -58,15 +58,15 @@
           <div class="flex-grow pl-4">
             <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">New Note</h2>
             <p class="leading-relaxed">
-              <span class="text-green-700 bg-green-100 rounded-md p-1 ">#{{event.event_by}}</span> {{event.event_name}} <span class="text-purple-700 bg-purple-100 rounded-md p-1">#{{event.event_model}}</span> in <span class="text-green-700 bg-blue-100 rounded-md p-1 ">#{{event.event_model.cluster}}</span> .
+              <span class="text-white bg-green-600 font-bold rounded-full px-2 ">{{event.event_by}}</span> {{event.event_name}} <span class="text-purple-700 bg-purple-100 rounded-md p-1">#{{event.event_model}}</span> in <span class="text-green-700 bg-blue-100 rounded-md p-1 ">#{{event.event_model.cluster}}</span> .
             </p>
           </div>
-        </div>
-      {% endfor %}  
-
-    </div>
-      <img class="lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12" src={% static 'archiver/assets/homepage.jpg' %} alt="step">
-    </div>
+          </div>
+        {% endfor %}  
+      </div>
+   
+      <img class="lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 " src={% static 'archiver/assets/homepage.svg' %} alt="step">
+   
   </div>
 </section>
 
