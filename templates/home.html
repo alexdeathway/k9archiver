@@ -36,19 +36,19 @@
             <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
           </div>
           {% if event.event_name == 'created' %}
-          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-50 inline-flex items-center justify-center text-yellow-300 border-gray-300 relative z-10">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-50 inline-flex items-center justify-center text-purple-400 border-gray-300 relative z-10">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
           {% elif event.event_name == 'approved' %}
-          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-green-500 inline-flex items-center justify-center text-white relative z-10">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-50 inline-flex items-center justify-center text-green-400 relative z-10">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
          {% else %}
-          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-yellow-500 inline-flex items-center justify-center text-white relative z-10">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-50 inline-flex items-center justify-center text-yellow-400 relative z-10">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
             </svg>
@@ -58,22 +58,22 @@
           <div class="flex-grow pl-4">
             <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">New Note</h2>
             <p class="leading-relaxed">
-              <span class="text-white bg-green-600 font-bold rounded-full px-2 ">{{event.event_by}}</span> {{event.event_name}} <span class="text-purple-700 bg-purple-100 rounded-md p-1">#{{event.event_model}}</span> in <span class="text-green-700 bg-blue-100 rounded-md p-1 ">#{{event.event_model.cluster}}</span> .
+              <span class="text-white bg-green-300 font-bold rounded-full px-2 ">{{event.event_by}}</span> {{event.event_name}} <span class="text-white bg-purple-300 font-bold rounded-full px-2">{{event.event_model}}</span> in <span class="text-white bg-blue-300 rounded-full px-2 font-bold">{{event.event_model.cluster}}</span> .
             </p>
           </div>
           </div>
         {% endfor %}  
       </div>
    
-      <img class="lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 " src={% static 'archiver/assets/homepage.svg' %} alt="step">
+      <img class="lg:w-3/5 md:w-1/2 object-cover object-center  rounded-lg md:mt-0 " src={% static 'archiver/assets/test_adjust_size_response.svg' %} alt="step">
    
   </div>
 </section>
 
 
 {% comment %} this is team section {% endcomment %}
-<section class="text-gray-600 body-font">
-  <div class="container px-5 py-24 mx-auto">
+<section class="text-gray-600  pt-8 body-font">
+  <div class="container px-5  mx-auto">
     <div class="flex flex-col text-center w-full mb-20">
       <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Our Team</h1>
       <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them.</p>
