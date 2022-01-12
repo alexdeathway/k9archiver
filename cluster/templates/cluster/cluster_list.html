@@ -12,7 +12,7 @@
           </div>
           <div class="flex-grow pl-6">
           <a href="{% url 'cluster:clusterdetail' cluster.code_name %}">
-            <h2 class="tracking-widest text-xs title-font font-medium text-gray-900 mb-1">{{cluster.code_name}}</h2>
+            <h2 class="tracking-widest text-xs italic title-font font-medium text-gray-900 mb-1">{{cluster.code_name}}</h2>
             <h1 class="title-font text-xl font-medium text-yellow-500 mb-3">{{cluster.cluster_name}}</h1>
           </a>
             <p class="leading-relaxed mb-5">{{cluster.description|slice:":120"}}...</p>

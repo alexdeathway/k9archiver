@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.views.generic import CreateView,TemplateView,UpdateView
 
 from django.http import Http404
-from cluster.models import NoteModel,ClusterModel
+from cluster.models import NoteModel,ClusterModel,NoteEventModel
 from .forms import CustomUserCreationForm,UserUpdateForm
 
 
@@ -32,10 +32,11 @@ class UserProfileView(TemplateView):
         except User.DoesNotExist:
             raise Http404("User doesnt exists!")    
         notes=NoteModel.objects.filter(author=user)
-        organisations=ClusterModel.objects.filter(owner=user)
+        clusters=ClusterModel.objects.filter(owner=user)
         context["userprofile"]=user
         context["notes"]=notes
-        context["organisations"]=organisations
+        context["clusters"]=clusters
+        context["contributions"]=NoteEventModel.objects.filter(event_by=user)
         return context
 
 class UserProfileUpdateView(LoginRequiredMixin,UpdateView):

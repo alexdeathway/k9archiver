@@ -47,6 +47,6 @@ class NoteEventModel(models.Model):
     event_by=models.ForeignKey(User,on_delete=models.CASCADE,related_name="NoteEventModel_User")
 
     def __str__(self):
-        return f"{self.event_model} {self.event_name} by {self.event_by} "
+        return f"{self.event_model} {self.event_name} by {self.event_by}"
 
 
