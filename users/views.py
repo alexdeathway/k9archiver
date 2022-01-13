@@ -40,7 +40,7 @@ class UserProfileView(TemplateView):
         return context
 
 class UserProfileUpdateView(LoginRequiredMixin,UpdateView):
-    template_name="users/user_update.html"
+    template_name="users/profile_update.html"
     #form_class=UserUpdateForm
     model=User
     form_class=UserUpdateForm
