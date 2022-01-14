@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from .models import ClusterModel,NoteModel
 
@@ -13,8 +15,15 @@ class ClusterCreationForm(forms.ModelForm):
         fields = [
             "cluster_name",
             "code_name",
+            "description",
             "permission",
         ]
+
+    def clean_code_name(self):
+        code_name= self.cleaned_data['code_name']
+        if not re.match(r'^[0-9a-zA-Z]*$',code_name):
+                raise forms.ValidationError("Sorry , you can only have alphanumeric in Cluster code name") 
+        return code_name
 
 class ClusterUpdateForm(forms.ModelForm):
     
@@ -28,9 +37,15 @@ class ClusterUpdateForm(forms.ModelForm):
         fields = [
             "cluster_name",
             "code_name",
+            "description",
             "permission",
         ]
-
+    
+    def clean_code_name(self):
+        code_name= self.cleaned_data['code_name']
+        if not re.match(r'^[0-9a-zA-Z]*$',code_name):
+                raise forms.ValidationError("Sorry , you can only have alphanumeric in Cluster code name") 
+        return code_name
 
 class NoteCreationForm(forms.ModelForm):
     
@@ -44,26 +59,37 @@ class NoteCreationForm(forms.ModelForm):
         model = NoteModel
         fields = [
             "title",
+            "cover",
             "code",
             "body",
             "cluster",
         ]
+    def clean_code(self):
+        code= self.cleaned_data['code']
+        if not re.match(r'^[0-9a-zA-Z]*$',code):
+                raise forms.ValidationError("Sorry , you can only have alphanumeric in code name") 
+        return code    
 
 class NoteUpdateForm(forms.ModelForm):
-    
-    def __init__(self,*args, **kwargs):
-            request=kwargs.pop("request")
-            note=kwargs.get('instance') #avoid using pop here, it will remove instance from request body itself
-            super(NoteUpdateForm,self).__init__(*args,**kwargs)
-            if request.user == note.cluster.owner:
-                self.fields["is_verified"]=forms.ModelBooleanField()
-            
+                            
     class Meta:
         model = NoteModel
         fields = [
             "title",
+            "cover",
             "body",
+            "is_verified",
         ]
+        exclude=[
+            "is_verified",
+        ]
+ 
+
+    def clean_code(self):
+        code= self.cleaned_data['code']
+        if not re.match(r'^[0-9a-zA-Z]*$',code):
+                raise forms.ValidationError("Sorry , you can only have alphanumeric in code name") 
+        return code    
         
         
 
@@ -81,6 +107,33 @@ class ClusterNoteCreationForm(forms.ModelForm):
         fields = [
             "title",
             "code",
+            "cover",
             "body",
             "cluster",
         ]
+
+    def clean_code(self):
+        code= self.cleaned_data['code']
+        if not re.match(r'^[0-9a-zA-Z]*$',code):
+                raise forms.ValidationError("Sorry , you can only have alphanumeric in code name") 
+        return code    
+
+
+class ClusterOwnerNoteUpdateForm(forms.ModelForm):
+                            
+    class Meta:
+        model = NoteModel
+        fields = [
+            "title",
+            "cover",
+            "body",
+            "is_verified",
+        ]
+ 
+
+    def clean_code(self):
+        code= self.cleaned_data['code']
+        if not re.match(r'^[0-9a-zA-Z]*$',code):
+                raise forms.ValidationError("Sorry , you can only have alphanumeric in code name") 
+        return code    
+        

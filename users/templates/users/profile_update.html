@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+ {% block body %}
+<div class="min-h-screen flex justify-center p-20 bg-gray-50 text-white px-4 sm:px-6 lg:px-8">
+
+    {% comment %} <div class="min-h-screen flex  justify-center bg-gray-50 py-32 px-4 sm:px-6 lg:px-8">     {% endcomment %}
+    <form method="POST" enctype="multipart/form-data" >
+
+{% csrf_token %}
+{{ form|crispy }}
+<button class="inline-flex items-center bg-yellow-300 border-0 py-1 px-3 mb-1 text-yellow-600 focus:outline-none hover:text-yellow-200 rounded text-base mt-4 md:mt-0">
+	submit
+</button>
+<hr/>
+</form>
+</div>
+{% endblock body %}

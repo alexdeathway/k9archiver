@@ -1,1 +1,14 @@
-<p>this is logout </p>
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div class="p-56">
+<p class="p-13 text-gray-700">You have successfully logged out! </p>
+<hr>
+<a href="{% url 'login' %}">
+<button  class="my-4 py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600 active:bg-blue-700 disabled:opacity-50">
+  Login again?
+</button>
+</a>
+</div>
+{% endblock body %}
