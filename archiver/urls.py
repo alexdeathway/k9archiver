@@ -36,6 +36,7 @@ urlpatterns = [
     path('login/',LoginView.as_view(),name="login"),
     path('logout/',LogoutView.as_view(),name="logout"),
     path('signup/',UserSignupView.as_view(),name="signup"),
+    path('summernote/', include('django_summernote.urls')),
     path('reset-password/',PasswordResetView.as_view(),name="reset-password"), 
     path('reset-password-done/',PasswordResetDoneView.as_view(),name="password_reset_done"),
     path('reset-password-confirm/<uidb64>/<token>/',PasswordResetConfirmView.as_view(),name="password_reset_confirm"),

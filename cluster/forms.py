@@ -1,7 +1,8 @@
 import re
-
 from django import forms
 from .models import ClusterModel,NoteModel
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+
 
 class ClusterCreationForm(forms.ModelForm):
     
@@ -57,12 +58,15 @@ class NoteCreationForm(forms.ModelForm):
 
     class Meta:
         model = NoteModel
+        widgets = {
+            'body':SummernoteWidget(),
+        }
         fields = [
             "title",
+            "cluster",
             "cover",
             "code",
             "body",
-            "cluster",
         ]
     def clean_code(self):
         code= self.cleaned_data['code']
@@ -74,6 +78,9 @@ class NoteUpdateForm(forms.ModelForm):
                             
     class Meta:
         model = NoteModel
+        widgets = {
+            'body':SummernoteWidget(),
+        }
         fields = [
             "title",
             "cover",
@@ -104,6 +111,9 @@ class ClusterNoteCreationForm(forms.ModelForm):
 
     class Meta:
         model = NoteModel
+        widgets = {
+            'body':SummernoteWidget(),
+        }
         fields = [
             "title",
             "code",
@@ -123,6 +133,9 @@ class ClusterOwnerNoteUpdateForm(forms.ModelForm):
                             
     class Meta:
         model = NoteModel
+        widgets = {
+            'body':SummernoteWidget(),
+        }
         fields = [
             "title",
             "cover",
