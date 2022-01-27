@@ -25,11 +25,13 @@ User=get_user_model()
 def today():
     return datetime.date.today()
 
+
+def dummy_password():
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+
+
 class TestUrl(TestCase):
     
-    # def test_upload_image(image):
-    #         file=File(open(image))
-    #         return file
 
     def setUp(self):
         '''
@@ -37,8 +39,12 @@ class TestUrl(TestCase):
         '''
 
         self.TEST_ASSETS_DIR=os.path.join(settings.BASE_DIR,'test_assets')
+
+        #dummy user data will be used to create and login during the test session 
+        self.user_dummy_username='testuser'
+        self.user_dummy_password=dummy_password()
         
-        self.user = User.objects.create_user(username='testuser', password=''.join(random.choices(string.ascii_uppercase + string.digits, k=8)))
+        self.user = User.objects.create_user(username=self.user_dummy_username, password=self.user_dummy_password)
         self.testcluster=ClusterModel.objects.create(
             cluster_name="Test Cluster",
             code_name="testcluster",
@@ -61,7 +67,7 @@ class TestUrl(TestCase):
         )
     
     '''
-    Cluster Views Url test begins here
+    ClusterViews Url test begins here
     '''
 
     def test_clusterlist_url_is_resolved(self):
@@ -90,8 +96,28 @@ class TestUrl(TestCase):
 
     def test_clusternotecreate_url_is_resolved(self):    
         url=reverse('cluster:clusternotecreate',args=[self.testcluster.code_name])
-        self.assertEqual(resolve(url).func.view_class,ClusterNoteCreateView)        
+        self.assertEqual(resolve(url).func.view_class,ClusterNoteCreateView)
+
+    def test_clusterownernoteupdate_url_is_resolved(self):    
+        url=reverse('cluster:clusterownernoteupdate',args=[self.testcluster.code_name,self.testnote.code])
+        self.assertEqual(resolve(url).func.view_class,ClusterOwnerNoteUpdateView)            
 
     '''
-    Note Views Url test begins here
+    NoteViews Url test begins here
     '''
+
+    def test_notecreate_url_is_resolved(self):    
+        url=reverse('cluster:notecreate')
+        self.assertEqual(resolve(url).func.view_class,NoteCreateView)
+
+    def test_noteupdate_url_is_resolved(self):    
+        url=reverse('cluster:noteupdate',args=[self.testcluster.code_name,self.testnote.code])
+        self.assertEqual(resolve(url).func.view_class,NoteUpdateView)
+
+    def test_notedetail_url_is_resolved(self):    
+        url=reverse('cluster:notedetail',args=[self.testcluster.code_name,self.testnote.code])
+        self.assertEqual(resolve(url).func.view_class,NoteDetailView)
+
+    def test_notedelete_url_is_resolved(self):    
+        url=reverse('cluster:notedelete',args=[self.testcluster.code_name,self.testnote.code])
+        self.assertEqual(resolve(url).func.view_class,NoteDeleteView)        
