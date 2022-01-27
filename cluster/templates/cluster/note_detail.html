@@ -2,7 +2,7 @@
 {% block body %}
 
 <section class="text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto">
+    <div class="container px-5 py-20 mx-auto">
             <div class="w-full mb-6 lg:mb-0 flex" style="justify-content: space-between;">
               <div class="">
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">{{note.title}}</h1>
@@ -29,11 +29,11 @@
               </div>                   
             </div>
                 
-            <div class="container pr-5 pt-5 mx-auto flex flex-wrap">
+            <div class="container pr-8 pt-2 mx-auto flex flex-wrap">
                   <div class="flex flex-wrap -mx-4 mt-auto mb-auto lg:w-1/2 sm:w-2/3 content-start sm:pr-10">
                     <div class="w-full mr-8 sm:p-4 px-4 mb-6">
                         <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-                          <img alt="team" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="https://dummyimage.com/80x80">
+                          <img alt="team" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="{{note.author.profile_picture.url}}">
                           <div class="flex-grow">
                             <h2 class="text-gray-900 title-font font-medium">{{note.author}}</h2>
                             <p class="text-gray-500">Author</p>
