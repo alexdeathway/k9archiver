@@ -182,6 +182,7 @@ class NoteUpdateView(UpdateView):
 
     def form_valid(self,form):
         note=form.save(commit=False)
+        #note edited after approval of cluster owner are labeled as "is_verified_updated" to avoid false approved case.
         note.is_verified=False
         note.is_verified_updated=True
         note.save()
@@ -296,6 +297,8 @@ class ClusterOwnerNoteUpdateView(UpdateView):
             event=NoteEventModel()
             event.event_by=self.request.user
             event.event_model=note
+            #checking if field changed in form contains is_verified,
+            #this is to make sure that approving note create approved event instead of updated.
             if "is_verified" in form.changed_data:
                 event.event_name="approved"
             else: 
