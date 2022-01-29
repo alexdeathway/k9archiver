@@ -120,4 +120,9 @@ class TestUrl(TestCase):
 
     def test_notedelete_url_is_resolved(self):    
         url=reverse('cluster:notedelete',args=[self.testcluster.code_name,self.testnote.code])
-        self.assertEqual(resolve(url).func.view_class,NoteDeleteView)        
+        self.assertEqual(resolve(url).func.view_class,NoteDeleteView)
+
+    def tearDown(self):
+        self.user.delete()
+        self.testcluster.delete()
+        self.testnote.delete()          
