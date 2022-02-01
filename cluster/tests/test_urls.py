@@ -35,7 +35,13 @@ class TestUrl(TestCase):
 
     def setUp(self):
         '''
+        
         TEST_ASSETS_DIR contains external required content for test. 
+        
+        Test func naming: test_<name of url>_url_is_resolved
+        for ex if url is: path("create/",ClusterCreateView.as_view(),name="clustercreate"),
+                    then:  test_clustercreate_url_is_resolved
+        
         '''
 
         self.TEST_ASSETS_DIR=os.path.join(settings.BASE_DIR,'test_assets')
