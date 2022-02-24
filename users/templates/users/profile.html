@@ -77,7 +77,7 @@
             <div class="flex-grow sm:pl-8">
               <h2 class="title-font font-medium text-lg text-gray-900">{{note.title}}</h2>
               <h3 class="text-gray-500 mb-3">{{note.author}}</h3>
-              <p class="mb-4">{{note.body|slice:":120"}}...</p>
+              <p class="mb-4">{{note.body|slice:":120"|safe}}...</p>
               <span class="inline-flex">
                 <a href="{% url 'cluster:notedetail' note.cluster.code_name note.code %}" class="text-gray-500">
                   <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">
