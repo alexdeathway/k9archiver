@@ -28,5 +28,4 @@ urlpatterns = [
     path("<slug:cluster>/<slug:code>/update/",NoteUpdateView.as_view(),name="noteupdate"),
     path("<slug:cluster>/<slug:code>/delete/",NoteDeleteView.as_view(),name="notedelete"),
     path("<slug:cluster>/owner/<slug:code>/update/",ClusterOwnerNoteUpdateView.as_view(),name="clusterownernoteupdate"),
-    
 ]
