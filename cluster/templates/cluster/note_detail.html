@@ -40,7 +40,7 @@
                           </div>
                         </div>
                       </div>
-
+                    {% if request.user == note.cluster.owner or request.user == note.author %}
                       <div class="pb-8 ml-8 mr-32 sm:w-1/2 w-full inline-flex">
                         <a href="{% url 'cluster:notedelete' note.cluster.code_name note.code %}"> 
                         <div class="bg-gray-100  text-red-500 border border-red-500 rounded flex px-4 h-full items-center">                          
@@ -67,10 +67,11 @@
                        
                     
                       </div>
+                      {% endif %}
 
                     <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                      <h2 class="title-font font-medium text-3xl text-gray-900">2.7K</h2>
-                      <p class="leading-relaxed">Users</p>
+                      <h2 class="title-font font-medium text-3xl text-gray-900">{{note.updates_count}}</h2>
+                      <p class="leading-relaxed">updates</p>
                     </div>
                     <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
                       <h2 class="title-font font-medium text-3xl text-gray-900">1.8K</h2>

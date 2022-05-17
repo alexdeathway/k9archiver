@@ -1,3 +1,4 @@
+from gc import get_objects
 from django.core.checks.messages import Error
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.fields import SlugField
@@ -113,7 +114,7 @@ class NoteCreateView(LoginRequiredMixin,CreateView):
         return super(NoteCreateView,self).form_valid(form)
 
     def get_success_url(self):
-        return reverse("cluster:clusterlist")
+        return reverse("cluster:notedetail",kwargs={'cluster':self.get_object().cluster__code_name,'code':self.get_object().code})
 
 class NoteDetailView(DetailView):
 
@@ -203,7 +204,7 @@ class NoteUpdateView(UpdateView):
     
 
     def get_success_url(self):
-        return reverse("cluster:clusterlist")
+        return reverse("cluster:notedetail",kwargs={"cluster":self.get_object().cluster__code_name,"code":self.get_object().code})
 
 class NoteDeleteView(DeleteView):
     template_name="cluster/note_delete.html"

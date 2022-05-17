@@ -32,6 +32,15 @@ class NoteModel(models.Model):
     body=models.CharField(max_length=15000,default="Empty")
     cluster=models.ForeignKey("ClusterModel", on_delete=models.CASCADE,related_name="NoteModel_ClusterModel")
 
+    @property
+    def updates_count(self):
+        return NoteEventModel.objects.filter(event_model=self).count() 
+    
+    
+    # @property
+    # def views_count(self):
+    #     return NoteStatsModel.objects.filter(post=self).count()
+    
     def __str__(self):
         return f"{self.code}"
 
@@ -48,5 +57,9 @@ class NoteEventModel(models.Model):
 
     def __str__(self):
         return f"{self.event_model} {self.event_name} by {self.event_by}"
+
+class NoteStatsModel(models.Model):
+    note=models.ForeignKey(NoteModel, on_delete=models.CASCADE,related_name='NoteStatsModel_NoteModel')
+
 
 
