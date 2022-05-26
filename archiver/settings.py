@@ -44,7 +44,8 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'archiver',
-    'cluster',
+    'cluster.apps.ClusterConfig',
+    "users.apps.UsersConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,7 +54,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "crispy_forms",
     "crispy_tailwind",
-    "users",
     'django_summernote',
 ]
 

@@ -88,23 +88,25 @@ class TestView(TestCase):
         self.assertEqual(response.status_code,200)
         self.assertTemplateUsed(response,template)
 
-    # def test_clustercreate_view_POST(self):
-    #     url= reverse('cluster:clustercreate',)
-    #     data={
-    #         'cluster_name':'Test Cluster View create',
-    #         'cluster_code':'clusterviewcreate',
-    #         'description':'This cluster is created for testing view clustercreate',
-    #         'permission':'PO',
-    #     }
-    #     request = self.factory.post(url)
-    #     request.data=data
-    #     request.user = self.user
-    #     response=ClusterCreateView.as_view()(request)
-    #     self.client(enforce_csrf_checks=True)
-    #     response=self.client.post(url,data,content_type="application/json")
+    def test_clustercreate_view_POST(self):
+        url= reverse('cluster:clustercreate',)
+        data={
+            'cluster_name':'Test Cluster View create',
+            'cluster_code':'clusterviewcreate',
+            'description':'This cluster is created for testing view clustercreate',
+            'permission':'PO',
+        }
+        #request = RequestFactory()
+        # request.data=data
+        # request.user = self.user
+        # response=ClusterCreateView.as_view()(request)
+        #self.client(enforce_csrf_checks=True)
+        # response=request.post(url)
+        #response=self.client.post(url,data)
+        response=self.client.post(url,data)
       
-    #     self.assertEqual(response.status_code,302)
-    #     self.assertEqual(ClusterModel.objects.first().code_name,"clusterviewcreate")
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(ClusterModel.objects.first().code_name,"clusterviewcreate")
         
     
     def test_clusterdetail_view_GET(self):
