@@ -1,4 +1,3 @@
-from django.core import files
 from django.test import TestCase
 from django.urls import reverse,resolve
 from cluster.models import ClusterModel,NoteModel
