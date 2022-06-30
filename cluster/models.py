@@ -58,6 +58,9 @@ class NoteEventModel(models.Model):
     def __str__(self):
         return f"{self.event_model} {self.event_name} by {self.event_by}"
 
+class ClusterGallery(models.Model):
+    cluster=models.ForeignKey(ClusterModel,on_delete=models.CASCADE,related_name='ClusterGallery_ClusterModel')
+
 class NoteStatsModel(models.Model):
     note=models.ForeignKey(NoteModel, on_delete=models.CASCADE,related_name='NoteStatsModel_NoteModel')
 
