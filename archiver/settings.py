@@ -44,7 +44,8 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'archiver',
-    'cluster',
+    'cluster.apps.ClusterConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,10 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "crispy_forms",
-    "crispy_tailwind",
-    "users",
+    'crispy_tailwind',
     'django_summernote',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -152,3 +154,21 @@ MEDIA_URL='/media/'
 CRISPY_TEMPLATE_PACK="tailwind"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL='home'
+
+#django debug toolbar 
+if DEBUG:
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+    INTERNAL_IPS = ['127.0.0.1', ]
+
+    
+    import mimetypes
+    mimetypes.add_type("application/javascript", ".js", True)
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }

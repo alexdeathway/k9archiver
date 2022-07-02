@@ -13,7 +13,7 @@ class ClusterModel(models.Model):
     cluster_name=models.CharField(max_length=100)
     code_name=models.CharField(max_length=20,unique=True)
     owner=models.ForeignKey(User, on_delete=models.CASCADE,related_name="ClusterModel_User")
-    description=models.CharField(max_length=600,default="Empty")
+    description=models.TextField(max_length=600,default="Empty")
     date=models.DateField(auto_now=True)
     permission=models.CharField(choices=Permission_level,max_length=10,default="PO")
     participant=None
@@ -57,6 +57,9 @@ class NoteEventModel(models.Model):
 
     def __str__(self):
         return f"{self.event_model} {self.event_name} by {self.event_by}"
+
+class ClusterGallery(models.Model):
+    cluster=models.ForeignKey(ClusterModel,on_delete=models.CASCADE,related_name='ClusterGallery_ClusterModel')
 
 class NoteStatsModel(models.Model):
     note=models.ForeignKey(NoteModel, on_delete=models.CASCADE,related_name='NoteStatsModel_NoteModel')
