@@ -172,3 +172,13 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
     }
+
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'dummydb.sqlite3',
+        }
+    }
+
+    MEDIA_ROOT=os.path.join(BASE_DIR,'dummymedia')
+    MEDIA_URL='/dummymedia/'
