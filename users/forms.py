@@ -14,6 +14,7 @@ class CustomUserCreationForm(UserCreationForm):
         }
         fields=[
             "username",
+            "profile_picture",
             "email",
             "password1",
             "password2",

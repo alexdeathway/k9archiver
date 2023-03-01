@@ -45,7 +45,7 @@ class ClusterListView(ListView):
 
 class ClusterDetailView(DetailView):
     model=ClusterModel
-    template_name="cluster/cluster_detail.html"
+    template_name="cluster/cluster_detail_updated.html"
     context_object_name="cluster"
     slug_url_kwarg="code_name"
     slug_field="code_name"
@@ -94,6 +94,7 @@ class NoteCreateView(LoginRequiredMixin,CreateView):
 
     template_name="cluster/note_create.html"
     form_class=NoteCreationForm
+    model=NoteModel
 
     def get_form_kwargs(self,**kwargs):
         kwargs=super(NoteCreateView,self).get_form_kwargs(**kwargs)
@@ -114,7 +115,9 @@ class NoteCreateView(LoginRequiredMixin,CreateView):
         return super(NoteCreateView,self).form_valid(form)
 
     def get_success_url(self):
-        return reverse("cluster:notedetail",kwargs={'cluster':self.get_object().cluster__code_name,'code':self.get_object().code})
+        code_name = self.object.cluster.code_name
+        code = self.object.code
+        return reverse("cluster:notedetail",kwargs={'cluster':code_name,'code':code})
 
 class NoteDetailView(DetailView):
 

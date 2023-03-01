@@ -26,6 +26,9 @@ This is a self-hosted website that can be used to Log/Note/journal almost anythi
 **Note Page Section** 
 ![K9archiver Screenshot](./docs/screenshot/Note_screenshot.png)
 
+**Cluster Page Section** 
+![K9archiver Screenshot](./docs/screenshot/Screenshot_cluster_k9archiver.png)
+
 ---
 **Quick development Guide**
 

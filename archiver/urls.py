@@ -27,6 +27,8 @@ from django.contrib.auth.views import (
                                         PasswordResetConfirmView,
                                         PasswordResetCompleteView,
                                       )
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -41,6 +43,7 @@ urlpatterns = [
     path('reset-password-done/',PasswordResetDoneView.as_view(),name="password_reset_done"),
     path('reset-password-confirm/<uidb64>/<token>/',PasswordResetConfirmView.as_view(),name="password_reset_confirm"),
     path('reset-password-complete/',PasswordResetCompleteView.as_view(),name="password_reset_complete"),
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon/favicon.ico')))
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

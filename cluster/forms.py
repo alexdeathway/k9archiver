@@ -15,6 +15,7 @@ class ClusterCreationForm(forms.ModelForm):
         
         fields = [
             "cluster_name",
+            "cover",
             "code_name",
             "description",
             "permission",
@@ -37,6 +38,7 @@ class ClusterUpdateForm(forms.ModelForm):
         
         fields = [
             "cluster_name",
+            "cover",
             "code_name",
             "description",
             "permission",
@@ -63,6 +65,7 @@ class NoteCreationForm(forms.ModelForm):
         }
         fields = [
             "title",
+            "summary",
             "cluster",
             "cover",
             "code",
@@ -83,6 +86,7 @@ class NoteUpdateForm(forms.ModelForm):
         }
         fields = [
             "title",
+            "summary",
             "cover",
             "body",
             "is_verified",
@@ -116,6 +120,7 @@ class ClusterNoteCreationForm(forms.ModelForm):
         }
         fields = [
             "title",
+            "summary",
             "code",
             "cover",
             "body",
@@ -138,6 +143,7 @@ class ClusterOwnerNoteUpdateForm(forms.ModelForm):
         }
         fields = [
             "title",
+            "summary",
             "cover",
             "body",
             "is_verified",

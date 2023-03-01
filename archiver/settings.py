@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from .secgen import generate_secret_key
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,23 +25,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
  
-try:
-    from .secret_keys import SECRET_KEY
-except ModuleNotFoundError:
-    SETTINGS_DIR=os.path.abspath(os.path.dirname(__file__))
-    generate_secret_key(os.path.join(SETTINGS_DIR,"secret_keys.py"))
-    from .secret_keys import SECRET_KEY 
+# try:
+#     from .secret_keys import SECRET_KEY
+# except ModuleNotFoundError:
+#     SETTINGS_DIR=os.path.abspath(os.path.dirname(__file__))
+#     generate_secret_key(os.path.join(SETTINGS_DIR,"secret_keys.py"))
+#     from .secret_keys import SECRET_KEY 
 
 
-#SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = os.getenv('DEBUG')
 #SECRET_KEY=""
-DEBUG=True
-ALLOWED_HOSTS = ["*"]
+DEBUG = os.environ.get('DEBUG', False) == 'True'
 
+ALLOWED_HOSTS = ["0.0.0.0","127.0.0.1"]
 
 # Application definition
 
@@ -94,11 +97,26 @@ WSGI_APPLICATION = 'archiver.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        # "HOST": os.environ.get("DJANGO_POSTGRES_HOST"),
+        # "PORT": os.environ.get("DJANGO_POSTGRES_PORT"),
+        'HOST': '172.20.0.2',
+        'PORT': '5432',
+        "USER": os.environ.get("DJANGO_POSTGRES_USER"),
+        "PASSWORD": os.environ.get("DJANGO_POSTGRES_PASSWORD"),
+        "NAME": os.environ.get("DJANGO_POSTGRES_DATABASE"),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 
 
 # Password validation
@@ -136,12 +154,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    '/var/www/static/',
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+#     '/var/www/static/',
+# ]
 
-STATIC_ROOT='/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Default primary key field type
@@ -173,12 +191,3 @@ if DEBUG:
         'INTERCEPT_REDIRECTS': False,
     }
 
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'dummydb.sqlite3',
-        }
-    }
-
-    MEDIA_ROOT=os.path.join(BASE_DIR,'dummymedia')
-    MEDIA_URL='/dummymedia/'

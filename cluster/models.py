@@ -12,6 +12,7 @@ class ClusterModel(models.Model):
     )        
     cluster_name=models.CharField(max_length=100)
     code_name=models.CharField(max_length=20,unique=True)
+    cover=models.ImageField(default="default_cluster_cover.jpg",upload_to="cluster_cover")
     owner=models.ForeignKey(User, on_delete=models.CASCADE,related_name="ClusterModel_User")
     description=models.TextField(max_length=600,default="Empty")
     date=models.DateField(auto_now=True)
@@ -29,7 +30,8 @@ class NoteModel(models.Model):
     is_verified=models.BooleanField(default=False)
     is_verified_updated=models.BooleanField(default=False)
     code=models.CharField(max_length=20,unique=True)
-    body=models.CharField(max_length=15000,default="Empty")
+    summary=models.CharField(max_length=250,default="None")
+    body=models.TextField(max_length=100000,default="Empty")
     cluster=models.ForeignKey("ClusterModel", on_delete=models.CASCADE,related_name="NoteModel_ClusterModel")
 
     @property
