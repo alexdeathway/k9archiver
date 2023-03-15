@@ -17,7 +17,7 @@ class ClusterModel(models.Model):
     description=models.TextField(max_length=600,default="Empty")
     date=models.DateField(auto_now=True)
     permission=models.CharField(choices=Permission_level,max_length=10,default="PO")
-    participant=None
+    members = models.ManyToManyField(User,blank=True)
 
     def __str__(self):
         return f"{self.code_name}"
