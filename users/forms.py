@@ -29,3 +29,6 @@ class UserUpdateForm(forms.ModelForm):
             "profile_picture",
             "email",
         ]
+
+class InviteUserForm(forms.Form):
+    email=forms.EmailField(label="user email", required=False)

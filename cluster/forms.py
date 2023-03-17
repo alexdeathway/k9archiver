@@ -155,4 +155,7 @@ class ClusterOwnerNoteUpdateForm(forms.ModelForm):
         if not re.match(r'^[0-9a-zA-Z]*$',code):
                 raise forms.ValidationError("Sorry , you can only have alphanumeric in code name") 
         return code    
-        
+      
+class AddUserToClusterForm(forms.Form):
+    username = forms.CharField(label='Username')
+    

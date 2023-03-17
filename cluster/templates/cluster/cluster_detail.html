@@ -34,6 +34,17 @@
                     </svg>
                 </button>
             </a>
+
+            <a href="{% url 'cluster:adduser' cluster.code_name  %}"> 
+              <button>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-4 h-12 w-12 hover:text-yellow-500 hover:w-16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17,11H13V7A1,1,0,0,0,11,7V11H7A1,1,0,0,0,7,13H11v4a1,1,0,0,0,2,0V13h4A1,1,0,0,0,17,11Z"/>
+                  <path d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm5,13a1,1,0,0,1-1,1H13v3a1,1,0,0,1-2,0V16H8a1,1,0,0,1,0-2H11V11a1,1,0,0,1,2,0v3h3A1,1,0,0,1,17,15Z"/>
+                </svg>
+                
+              </button>
+            </a>
+
             <a href="{% url 'cluster:clusterdelete' cluster.code_name %}"> 
                 <button type="submit" class="inline-flex items-center justify-center space-x-2 py-3 px-4 border border-transparent text-sm font-medium rounded text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="-pl-2 red-500  h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

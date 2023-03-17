@@ -6,11 +6,16 @@ class ClusterOwnerPermission(PermissionRequiredMixin):
     For checking if user is owner of cluster
     """
     permission_denied_message="Only cluster owner can perform this action."
+    raise_exception = False
 
     def has_permission(self) -> bool:
-        cluster=self.get_object()
+        object=self.get_object()
         user = self.request.user
-        return user==cluster.owner
+        if isinstance(object,ClusterModel):
+            cluster=object
+            return user == cluster.owner
+        note=object
+        return  user == note.author or user == note.cluster.owner
 
 class ClusterMemberPermission(PermissionRequiredMixin):
     """
@@ -33,5 +38,5 @@ class ClusterMemberPermission(PermissionRequiredMixin):
         elif isinstance(object,NoteModel):
             note=object
             return  user == note.author or user == note.cluster.owner #or note.cluster.members.filter(id=user.id).exists()
-        return False
+       
 

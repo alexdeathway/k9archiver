@@ -1,9 +1,8 @@
-from gc import get_objects
 from django.core.checks.messages import Error
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.fields import SlugField
 from django.http import Http404
-from django.shortcuts import render, reverse 
+from django.shortcuts import render, reverse,redirect 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import ClusterModel, NoteModel,NoteEventModel
 from django.views.generic import (
@@ -11,7 +10,8 @@ from django.views.generic import (
                                     DetailView,
                                     CreateView,
                                     DeleteView,
-                                    UpdateView
+                                    UpdateView,
+                                    FormView,
                                 )  
 from .forms import (
                     ClusterCreationForm,
@@ -20,13 +20,16 @@ from .forms import (
                     NoteUpdateForm, 
                     ClusterNoteCreationForm,
                     ClusterOwnerNoteUpdateForm,
+                    AddUserToClusterForm,
                     ) 
 
 from cluster.mixins import (
                            ClusterOwnerPermission,
                            ClusterMemberPermission
                         )
+from django.contrib.auth import get_user_model
 
+User=get_user_model()
 
 class ClusterCreateView(LoginRequiredMixin,CreateView):
     template_name="cluster/cluster_create.html"
@@ -337,10 +340,34 @@ class ClusterOwnerNoteUpdateView(ClusterOwnerPermission,UpdateView):
     
     def get_success_url(self):
         return reverse("cluster:clusterlist")
-            
 
+class AddUserToCluster(FormView):
+    template_name = 'cluster/add_user_to_cluster.html'
+    form_class = AddUserToClusterForm
+    
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cluster_code = self.kwargs['code_name']
+        context['cluster'] = ClusterModel.objects.get(code_name=cluster_code)
+        return context
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        cluster_code = self.kwargs['code_name']
+        cluster=ClusterModel.objects.get(code_name=cluster_code)
         
+        try:
+            user = User.objects.get(username=username)
+            cluster.members.add(user)
+            return super().form_valid(form)
+        except User.DoesNotExist: 
+            self.request.session['cluster'] = cluster_code
+            return redirect('users:invite')
+
+    def get_success_url(self):
+        return reverse("cluster:clusterdetail",kwargs={"cluster":self.kwargs['code_name']})
+
     
 
 

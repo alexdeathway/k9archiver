@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     'crispy_tailwind',
     'django_summernote',
+    "anymail",
 ]
 
 
@@ -98,11 +99,11 @@ WSGI_APPLICATION = 'archiver.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        # "HOST": os.environ.get("DJANGO_POSTGRES_HOST"),
-        # "PORT": os.environ.get("DJANGO_POSTGRES_PORT"),
-        'HOST': '172.20.0.2',
-        'PORT': '5432',
+        # "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": os.environ.get("DJANGO_POSTGRES_HOST"),
+        "PORT": os.environ.get("DJANGO_POSTGRES_PORT"),
+        # 'HOST': '172.20.0.2',
+        # 'PORT': '5432',
         "USER": os.environ.get("DJANGO_POSTGRES_USER"),
         "PASSWORD": os.environ.get("DJANGO_POSTGRES_PASSWORD"),
         "NAME": os.environ.get("DJANGO_POSTGRES_DATABASE"),
@@ -173,6 +174,14 @@ CRISPY_TEMPLATE_PACK="tailwind"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL='home'
 
+#email settings
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+DEFAULT_FROM_EMAIL=os.getenv('DEFAULT_FROM_EMAIL')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 #django debug toolbar 
 if DEBUG:
     MIDDLEWARE += [

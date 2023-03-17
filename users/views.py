@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render,reverse
 from django.contrib.auth import get_user_model
-from django.views.generic import CreateView,TemplateView,UpdateView
-
+from django.views.generic import CreateView,TemplateView,UpdateView,FormView
+from django.core.mail import EmailMessage
 from django.http import Http404
 from cluster.models import NoteModel,ClusterModel,NoteEventModel
-from .forms import CustomUserCreationForm,UserUpdateForm
-
+from .forms import CustomUserCreationForm,UserUpdateForm,InviteUserForm
+from django.conf import settings
 
 User=get_user_model()
 
@@ -59,6 +59,38 @@ class UserProfileUpdateView(LoginRequiredMixin,UpdateView):
 
 class EmailVerificationView():
     pass
+
+
+class UserInviteView(FormView):
+    template_name = 'users/invite_user.html'
+    form_class = InviteUserForm
+
+    def form_valid(self, form):
+        # get form data
+        user = self.request.user
+        to = [form.cleaned_data['email']]
+        cluster=self.request.session.pop('cluster')
+        
+        
+        # create email message
+        subject = f'Invite from {user}'
+        body = f'{user} invited you to collabrate at cluster {cluster},Join K9archiver!'
+        if not(cluster):
+            body = f'{user} invited you to join k9archiver!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        email_message = EmailMessage(subject, body, from_email, to)
+        
+        # send email
+        email_message.send()
+        
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("home")
+
+    
+
+
 
     
     
