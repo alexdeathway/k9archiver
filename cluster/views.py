@@ -5,6 +5,7 @@ from django.http import Http404
 from django.shortcuts import render, reverse,redirect 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import ClusterModel, NoteModel,NoteEventModel
+from django.shortcuts import get_object_or_404
 from django.views.generic import (
                                     ListView,
                                     DetailView,
@@ -61,6 +62,7 @@ class ClusterDetailView(DetailView):
         context=super(ClusterDetailView,self).get_context_data(**kwargs)
         notes=self.get_object().NoteModel_ClusterModel.all()              
         context["notes"]=notes
+        context["is_member"]=self.request.user in self.get_object().members.all()
         return context
 
 class ClusterUpdateView(LoginRequiredMixin,ClusterOwnerPermission,UpdateView):
@@ -131,6 +133,7 @@ class NoteDetailView(DetailView):
     model=NoteModel
     template_name="cluster/note_detail.html"
     context_object_name="note"
+
     
     def get_object(self, queryset=None):
        
@@ -149,18 +152,11 @@ class NoteDetailView(DetailView):
 
         return obj    
         
-        """                      
-
+    def get_context_data(self,**kwargs):
+        context=super(NoteDetailView,self).get_context_data(**kwargs)
         cluster_slug = self.kwargs.get('cluster', None)
-        code_slug = self.kwargs.get('code', None)
-        try:
-            obj = NoteModel.objects.get(code=code_slug, cluster__code_name =cluster_slug)        
-        except ObjectDoesNotExist: 
-            raise Http404(f"Object not found ")
-        
-        return obj    
-
-         """
+        context["is_member"]=self.request.user in self.get_object().cluster.members.all()
+        return context
 
 class NoteUpdateView(ClusterMemberPermission,UpdateView):
     template_name="cluster/note_update.html"
@@ -341,16 +337,22 @@ class ClusterOwnerNoteUpdateView(ClusterOwnerPermission,UpdateView):
     def get_success_url(self):
         return reverse("cluster:clusterlist")
 
-class AddUserToCluster(FormView):
+class AddUserToCluster(ClusterOwnerPermission,FormView):
     template_name = 'cluster/add_user_to_cluster.html'
     form_class = AddUserToClusterForm
     
+    def get_object(self):
+        cluster_code = self.kwargs['code_name']
+        cluster =get_object_or_404(ClusterModel,code_name=cluster_code)
+        return cluster
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cluster_code = self.kwargs['code_name']
         context['cluster'] = ClusterModel.objects.get(code_name=cluster_code)
         return context
+
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
@@ -366,7 +368,7 @@ class AddUserToCluster(FormView):
             return redirect('users:invite')
 
     def get_success_url(self):
-        return reverse("cluster:clusterdetail",kwargs={"cluster":self.kwargs['code_name']})
+        return reverse("cluster:clusterdetail",kwargs={"code_name":self.kwargs['code_name']})
 
     
 

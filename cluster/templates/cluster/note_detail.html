@@ -40,7 +40,7 @@
                           </div>
                         </div>
                       </div>
-                    {% if request.user == note.cluster.owner or request.user == note.author %}
+                    {% if request.user == note.cluster.owner or request.user == note.author or is_member %}
                       <div class="pb-8 ml-8 mr-32 sm:w-1/2 w-full inline-flex">
                         <a href="{% url 'cluster:notedelete' note.cluster.code_name note.code %}"> 
                         <div class="bg-gray-100  text-red-500 border border-red-500 rounded flex px-4 h-full items-center">                          
@@ -53,9 +53,9 @@
                         
                         
                         <span>
-                            {% if request.user == note.cluster.owner  %}
+                            {% if request.user == note.cluster.owner %}
                             <a href="{% url  'cluster:clusterownernoteupdate' note.cluster.code_name note.code %}">
-                            {% else %}
+                            {% elif request.user == note.author or  is_member %}
                             <a href="{% url  'cluster:noteupdate' note.cluster.code_name note.code %}">
                             {% endif %}      
                             <svg xmlns="http://www.w3.org/2000/svg" class="mx-4  h-12 w-5 hover:text-yellow-500 hover:w-8" viewBox="0 0 20 20" fill="currentColor">

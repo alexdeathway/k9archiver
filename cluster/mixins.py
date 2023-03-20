@@ -33,10 +33,10 @@ class ClusterMemberPermission(PermissionRequiredMixin):
             allow note creation if user is member or owner of cluster.
             """
             cluster=object
-            return user == cluster.owner or cluster.members.filter(id=user.id).exists()
+            return user == cluster.owner or user in cluster.members.filter(id=user.id).exists()
         #allow note modification        
         elif isinstance(object,NoteModel):
             note=object
-            return  user == note.author or user == note.cluster.owner #or note.cluster.members.filter(id=user.id).exists()
+            return  user == note.author or user == note.cluster.owner or note.cluster.members.filter(id=user.id).exists()
        
 
