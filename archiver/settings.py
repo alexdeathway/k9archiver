@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     "crispy_forms",
     'crispy_tailwind',
     'django_summernote',
-    "anymail",
 ]
 
 
@@ -99,9 +98,9 @@ WSGI_APPLICATION = 'archiver.wsgi.application'
 
 DATABASES = {
     "default": {
-        # "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": os.environ.get("DJANGO_POSTGRES_HOST"),
-        "PORT": os.environ.get("DJANGO_POSTGRES_PORT"),
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+         "HOST": os.environ.get("DJANGO_POSTGRES_HOST"),
+         "PORT": os.environ.get("DJANGO_POSTGRES_PORT"),
         # 'HOST': '172.20.0.2',
         # 'PORT': '5432',
         "USER": os.environ.get("DJANGO_POSTGRES_USER"),

@@ -37,6 +37,10 @@ class NoteModel(models.Model):
     @property
     def updates_count(self):
         return NoteEventModel.objects.filter(event_model=self).count() 
+
+    @property
+    def views_count(self):
+        return NoteStatsViewModel.objects.filter(note=self).count()
     
     
     # @property
@@ -60,11 +64,20 @@ class NoteEventModel(models.Model):
     def __str__(self):
         return f"{self.event_model} {self.event_name} by {self.event_by}"
 
-class ClusterGallery(models.Model):
-    cluster=models.ForeignKey(ClusterModel,on_delete=models.CASCADE,related_name='ClusterGallery_ClusterModel')
+# class ClusterGallery(models.Model):
+#     cluster=models.ForeignKey(ClusterModel,on_delete=models.CASCADE,related_name='ClusterGallery_ClusterModel')
+#     image=models.ImageField(upload_to="Cluster images", height_field=None, width_field=None, max_length=None)
 
-class NoteStatsModel(models.Model):
+#     def __str__(self):
+#         return f'{self.cluster}\'s Image'
+
+class NoteStatsViewModel(models.Model):
     note=models.ForeignKey(NoteModel, on_delete=models.CASCADE,related_name='NoteStatsModel_NoteModel')
+    ip_address= models.GenericIPAddressField(default="0.0.0.0")
 
+    def __str__(self):
+        return f'{0} in {1} post'.format(self.IPAddres,self.post.title)
 
+# class BookMarkModel(models.Model):
+#     bookmarked=models.ForeignKey("app.Model", verbose_name=_("test"), on_delete=models.CASCADE)
 

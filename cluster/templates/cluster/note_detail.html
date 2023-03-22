@@ -2,7 +2,7 @@
 {% block body %}
 
 <section class="text-gray-600 body-font">
-    <div class="container px-5 py-20 mx-auto">
+    <div class="container px-5 pt-20 mx-auto">
             <div class="w-full mb-6 lg:mb-0 flex" style="justify-content: space-between;">
               <div class="">
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">{{note.title}}</h1>
@@ -74,7 +74,7 @@
                       <p class="leading-relaxed">Updates</p>
                     </div>
                     <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                      <h2 class="title-font font-medium text-3xl text-gray-900">1.8K</h2>
+                      <h2 class="title-font font-medium text-3xl text-gray-900">{{note.views_count}}</h2>
                       <p class="leading-relaxed">Views</p>
                     </div>
                     <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
@@ -93,14 +93,15 @@
             </div>
             <div class="h-1 mt-8 mx-36 bg-gray-200 rounded overflow-hidden">
               <div class="w-32 h-full bg-yellow-500"></div>
-            </div>
-            <div class=" mt-8 mx-24 w-full md:w-2/3 flex flex-col mb-16 ">
-              <p class="mb-8 leading-relaxed">{{note.body|safe }}</p>
-            </div>
-                          
+            </div>                   
     </div>
-    
-   
+<main class="pt-6 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
+  <div class="flex justify-between  mx-auto max-w-screen-xl ">
+    <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+      {{note.body|safe }}
+    </article>
+  </div> 
+</main>
 </section>
 
 {% endblock body %}
