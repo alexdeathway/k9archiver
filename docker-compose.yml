@@ -2,13 +2,11 @@ version: "3.8"
 
 volumes:
     app_data:
-        name: app_data
-    app_broker:
-        name: app_broker
+        name: k9archiver_app_data
     static_files:
-        name: static_files
+        name: k9archiver_static_files
     media_files:
-        name: media_files
+        name: k9archiver_media_files
 
 services:
     django:

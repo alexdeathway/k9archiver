@@ -76,7 +76,7 @@ class NoteStatsViewModel(models.Model):
     ip_address= models.GenericIPAddressField(default="0.0.0.0")
 
     def __str__(self):
-        return f'{0} in {1} post'.format(self.IPAddres,self.post.title)
+        return f'{self.ip_address} in {self.note.title} post'
 
 # class BookMarkModel(models.Model):
 #     bookmarked=models.ForeignKey("app.Model", verbose_name=_("test"), on_delete=models.CASCADE)
