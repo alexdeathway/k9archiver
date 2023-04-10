@@ -9,14 +9,55 @@
       <div class="bg-white rounded-b-lg px-8">
         <div class="relative">
               <img class="right-0 w-16 h-16 rounded-full border-2 border-gray-200  mr-4 shadow-lg absolute -mt-8 bg-gray-100" src="{{cluster.owner.profile_picture.url}}" alt="Avatar">
+
         </div>
         <div class="pt-8 pb-8">
          <h1 class="text-2xl font-bold text-gray-700">@{{cluster.code_name}}</h1>
           {% comment %} <p class="text-sm text-gray-600">@{{cluster.code_name}}</p> {% endcomment %}
+          
+          <div class="flex py-2 space-x-2">
+
+            <button type="button" class="flex items-center divide-x rounded-lg border border-gray-300 bg-white text-center text-sm font-medium text-secondary-700 shadow-sm hover:bg-gray-100">
+              <div class="flex items-center space-x-2 py-1 px-3">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clip-rule="evenodd" />
+                  <path fill-rule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zm9.586 4.594a.75.75 0 00-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.116-.062l3-3.75z" clip-rule="evenodd" />
+                </svg>
+                
+            
+                <span>Notes</span>
+              </div>
+              <div class="py-2.5 px-3">{{notes_count}}</div>
+            </button>
+            
+            {% if members %}
+            <div class="flex items-center divide-x rounded-lg border border-gray-300 bg-white text-center text-sm font-medium text-secondary-700 shadow-sm hover:bg-gray-100">
+              <div class="flex items-center space-x-2 py-1 px-3">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+                </svg>
+                            
+                <span>members</span>
+              </div>
+              <div class="flex -space-x-2">
+              {% for member in members %}
+                  <div
+                    class="relative flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-full bg-gray-100 text-sm font-bold uppercase text-gray-800 ring ring-white">
+                    <img
+                      class="h-full w-full rounded-full object-cover object-center"
+                      src="{{member.profile_picture.url}}" />
+                  </div>
+              {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+          </div>  
+
+          <p class="my-2  text-gray-700">{{cluster.description}}</p>
+          <hr class="mx-auto my-1 h-1 w-60 border-0 bg-gray-100" />
+          
   
-          <p class="mt-2  text-gray-700">{{cluster.description}}</p>
-  
-          <div class="flex justify-around mt-8">
+          <div class="flex justify-around mt-4">
             {% if request.user == cluster.owner or cluster.permission == "Public" or is_member %}
             <a href="{% url 'cluster:clusternotecreate' cluster.code_name %}">
             <button type="submit" class="inline-flex items-center justify-center space-x-2 py-3 px-4 border border-transparent text-sm font-medium rounded text-green-600 hover:text-green-700 bg-green-50 hover:bg-green-100 transition-colors">

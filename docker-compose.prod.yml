@@ -13,7 +13,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: archiver:development
+        image: archiver:production
         command: /app/docker/start.sh server
         depends_on:
             - postgres
@@ -22,7 +22,6 @@ services:
         ports:
             - 8000:8000
         volumes:
-            - .:/app
             - static_files:/app/static
             - media_files:/app/media
 

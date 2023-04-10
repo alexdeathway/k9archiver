@@ -40,3 +40,4 @@ wrapt==1.13.3
 psycopg2-binary==2.9.1
 eventlet==0.33.3
 dnspython==2.2.1
+django-ipware==5.0.0

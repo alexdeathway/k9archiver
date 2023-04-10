@@ -5,7 +5,7 @@ from django.http import Http404
 from django.shortcuts import render, reverse,redirect 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import ClusterModel, NoteModel,NoteEventModel,NoteStatsViewModel
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404,HttpResponse
 from django.views.generic import (
                                     ListView,
                                     DetailView,
@@ -31,15 +31,14 @@ from cluster.mixins import (
 from django.contrib.auth import get_user_model
 
 User=get_user_model()
-
-def get_client_ip(request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
-
+from ipware import get_client_ip
+# def get_client_ip(request):
+#         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+#         if x_forwarded_for:
+#             ip = x_forwarded_for.split(',')[0]
+#         else:
+#             ip = request.META.get('REMOTE_ADDR')
+#         return ip
 
 
 class ClusterCreateView(LoginRequiredMixin,CreateView):
@@ -70,9 +69,12 @@ class ClusterDetailView(DetailView):
 
     def get_context_data(self,**kwargs):
         context=super(ClusterDetailView,self).get_context_data(**kwargs)
-        notes=self.get_object().NoteModel_ClusterModel.all()              
+        notes=self.object.NoteModel_ClusterModel.all()
+        members=self.object.members.all()              
         context["notes"]=notes
-        context["is_member"]=self.request.user in self.get_object().members.all()
+        context["notes_count"]=notes.count()
+        context["members"]=members
+        context["is_member"]=self.request.user in members
         return context
 
 class ClusterUpdateView(LoginRequiredMixin,ClusterOwnerPermission,UpdateView):
@@ -156,7 +158,8 @@ class NoteDetailView(DetailView):
 
         try:
             obj = queryset.get(code=code_slug, cluster__code_name =cluster_slug)
-            NoteStatsViewModel.objects.get_or_create(note=obj, ip_address=get_client_ip(self.request))  
+            client_ip, is_routable = get_client_ip(self.request)
+            NoteStatsViewModel.objects.get_or_create(note=obj, ip_address=client_ip)           
         except ObjectDoesNotExist:
             raise Http404(f"Object not found ")
 
