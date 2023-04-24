@@ -34,18 +34,40 @@ This is a self-hosted website that can be used to Log/Note/journal almost anythi
 
 > ⚠️ Data used for/in dummy media/database isn't owned or licensed under this project and is here for sole purpose of setting up quick development and testing environment, do not publish or distribute.
 
-1. Create virtual environment
+### Using Docker 
+1. Create .env file
+```python
+mv template.env .env
+```
+2. Start development docker
+```python
+sudo docker-compose -f docker-compose.yml up --build
+```
+
+### Using virtualenv
+
+1. Create .env file
+```python
+mv template.env .env
+```
+
+2. Create virtual environment
 ```python
 virtualenv <environment name>
 ```
-2. Install required packages
 
+3. Install required packages
 ```python
 pip install -r requirements.txt
 ```
+4. Run migrations and  Load dummy data to database
+```python
+python manage.py migrate
+python manage.py loaddata db.json
+```
 
-3. Read project overview for app & structure understanding. 
+5. Read project overview for app & structure understanding. 
 
-4. Choose issue/task to work from quests/issue or work on own feature.
+6. Choose issue or work on own feature.
 
 ---

@@ -1,0 +1,30 @@
+name: Django Project Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: create .env
+        run: mv template.env .env
+
+      - name: Build and start Docker containers
+        run: docker-compose -f docker-compose.yml up -d --build
+
+      - name: Run Django tests
+        run: docker-compose exec -it k9archiver_django_1 python manage.py test
+
+      - name: Stop and remove Docker containers
+        run: docker-compose down
