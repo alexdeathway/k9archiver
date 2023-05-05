@@ -1,4 +1,4 @@
-name: Django Project Test
+name: Unit Tests
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
         run: docker-compose -f docker-compose.yml up -d --build
 
       - name: Run Django tests
-        run: docker exec -it k9archiver_django_1 python manage.py test
+        run: docker exec k9archiver_django python manage.py test
 
       - name: Stop and remove Docker containers
         run: docker-compose down

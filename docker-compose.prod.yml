@@ -14,6 +14,7 @@ services:
             context: .
             dockerfile: Dockerfile
         image: archiver:production
+        container_name: k9archiver_django_production
         command: /app/docker/start.sh server
         depends_on:
             - postgres
@@ -27,6 +28,7 @@ services:
 
     postgres:
         image: postgres:13.3-alpine
+        container_name: k9archiver_postgres_production
         volumes:
             - app_data:/var/lib/postgresql/data
         environment:
@@ -42,6 +44,7 @@ services:
             context: ./nginx
             dockerfile: Dockerfile
         image: nginx:development
+        container_name: k9archiver_nginx_production
         ports:
             - 80:80
         depends_on:

@@ -1,6 +1,6 @@
 asgiref==3.4.1
 astroid==2.8.6
-asttokens==2.0.5
+asttokens==2.2.1
 black==22.1.0
 bleach==4.1.0
 click==8.0.4
