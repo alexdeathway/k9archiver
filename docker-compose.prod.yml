@@ -49,6 +49,8 @@ services:
             - 80:80
         depends_on:
             - django
+        env_file:
+            - .env
         volumes:
             - static_files:/app/static:ro
             - media_files:/app/media:ro
