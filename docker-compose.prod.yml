@@ -7,6 +7,10 @@ volumes:
         name: k9archiver_static_files
     media_files:
         name: k9archiver_media_files
+    certbot_web:
+        name: k9archiver_certbot_web
+    certbot_certs:
+        name: k9archiver_certbot_certs
 
 services:
     django:
@@ -39,6 +43,17 @@ services:
         #     - "5432:5432"
     
     
+    certbot:
+        build:
+          context: ./certbot
+        command: echo "initializing certbot container"
+        env_file:
+            - .env
+        volumes:
+          - certbot_web:/vol/www
+          - certbot_certs:/etc/letsencrypt/
+
+    
     nginx:
         build:
             context: ./nginx
@@ -54,3 +69,5 @@ services:
         volumes:
             - static_files:/app/static:ro
             - media_files:/app/media:ro
+            - certbot_web:/vol/www:ro
+            - certbot_certs:/etc/letsencrypt/:ro
