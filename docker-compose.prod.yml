@@ -35,30 +35,15 @@ services:
         container_name: k9archiver_postgres_production
         volumes:
             - app_data:/var/lib/postgresql/data
-        environment:
-            POSTGRES_PASSWORD: kpostgres
-            POSTGRES_USER: kpostgres
-            POSTGRES_DB: kpostgres
-        # ports:
-        #     - "5432:5432"
-    
-    
-    certbot:
-        build:
-          context: ./certbot
-        command: echo "initializing certbot container"
         env_file:
             - .env
-        volumes:
-          - certbot_web:/vol/www
-          - certbot_certs:/etc/letsencrypt/
-
+    
     
     nginx:
         build:
             context: ./nginx
             dockerfile: Dockerfile
-        image: nginx:development
+        image: nginx:production
         container_name: k9archiver_nginx_production
         ports:
             - 80:80
@@ -71,3 +56,16 @@ services:
             - media_files:/app/media:ro
             - certbot_web:/vol/www:ro
             - certbot_certs:/etc/letsencrypt/:ro
+
+        certbot:
+            build:
+              context: ./certbot
+            command: certbot certonly --webroot --webroot-path "/vol/www/" -d "$DOMAIN" --email $EMAIL --rsa-key-size 4096 --agree-tos --noninteractive
+            depends_on:
+              - nginx
+            env_file:
+              - .env
+            volumes:
+              - certbot_web:/vol/www:rw
+              - certbot_certs:/etc/letsencrypt/:rw
+            
