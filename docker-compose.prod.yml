@@ -47,6 +47,7 @@ services:
         container_name: k9archiver_nginx_production
         ports:
             - 80:80
+            - 443:443
         depends_on:
             - django
         env_file:
@@ -57,7 +58,7 @@ services:
             - certbot_web:/vol/www:ro
             - certbot_certs:/etc/letsencrypt/:ro
 
-        certbot:
+    certbot:
             build:
               context: ./certbot
             command: certbot certonly --webroot --webroot-path "/vol/www/" -d "$DOMAIN" --email $EMAIL --rsa-key-size 4096 --agree-tos --noninteractive
