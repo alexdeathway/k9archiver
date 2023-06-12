@@ -32,24 +32,10 @@ services:
         container_name: k9archiver_postgres
         volumes:
             - app_data:/var/lib/postgresql/data
-        environment:
-            POSTGRES_PASSWORD: kpostgres
-            POSTGRES_USER: kpostgres
-            POSTGRES_DB: kpostgres
-        # ports:
-        #     - "5432:5432"
+        #environment:
+        #    POSTGRES_PASSWORD: postgres
+        #    POSTGRES_USER: postgres
+        #    POSTGRES_DB: postgres
+        env_file:
+            - .env
     
-    
-    nginx:
-        build:
-            context: ./nginx
-            dockerfile: Dockerfile
-        image: nginx:development
-        container_name: k9archiver_nginx
-        ports:
-            - 80:80
-        depends_on:
-            - django
-        volumes:
-            - static_files:/app/static:ro
-            - media_files:/app/media:ro
