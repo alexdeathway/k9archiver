@@ -37,8 +37,12 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 
 if [[ "$DEBUG" == "True" ]]; then
-  echo "Loading dummy database..."
-  python3 manage.py loaddata db.json
+  if [ -f "db.json" ]; then
+    echo "Loading dummy database..."
+    python3 manage.py loaddata db.json
+  else
+    echo "looks like there is no dummy database or fixture to load..."
+  fi
 else
   echo "This is not a drill...."
 fi

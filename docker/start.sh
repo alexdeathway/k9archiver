@@ -2,6 +2,8 @@
 
 cd /app
 
+LOG_FILE="logfile.log" 
+
 if [ $# -eq 0 ]; then
     echo "Usage: start.sh [PROCESS_TYPE](server)"
     exit 1
@@ -27,6 +29,6 @@ if [ "$PROCESS_TYPE" = "server" ]; then
             --log-level DEBUG \
             --access-logfile "-" \
             --error-logfile "-" \
-            seco.wsgi
+            seco.wsgi "$LOG_FILE" 2>&1 
     fi
 fi
