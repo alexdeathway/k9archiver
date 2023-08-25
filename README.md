@@ -2,13 +2,12 @@
 <div align="center">
 <img width="300" src="./docs/logo/k9archiver_transparent_project_logo.png"  alt="logo"/>
 
-[![Django Project Test](https://github.com/alexdeathway/k9archiver/actions/workflows/test.yaml/badge.svg)](https://github.com/alexdeathway/k9archiver/actions/workflows/test.yaml)
-
+[![Django Project Test](https://github.com/alexdeathway/k9archiver/actions/workflows/test.yaml/badge.svg)](https://github.com/alexdeathway/k9archiver/actions/workflows/test.yaml)[![Build](https://github.com/alexdeathway/k9archiver/actions/workflows/deploy.yaml/badge.svg)](https://github.com/alexdeathway/k9archiver/actions/workflows/deploy.yaml)
 </div>
 <hr>
 
 ## What it isn't ?
-This isn't bookmark helper or presentation maker. Tweaking might help it to act one so.
+This isn't bookmark helper or presentation maker. Tweaking might help it to act one.
 
 ## What it is ?
 This is a self-hosted website that can be used to Log/Note/journal almost anything by an individual or community. 

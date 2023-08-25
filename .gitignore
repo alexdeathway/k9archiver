@@ -108,3 +108,4 @@ archiver/secret_keys.py
 
 #.env file
 .env
+.operation.env
