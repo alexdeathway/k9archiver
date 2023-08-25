@@ -20,4 +20,4 @@ jobs:
 
     - name: Deploy
       run: |
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} 'cd ${{ secrets.PATH }} && ./deploy.sh'
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} 'cd ${{ secrets.PATH }} && ./operation.sh deploy'

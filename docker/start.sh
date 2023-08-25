@@ -29,6 +29,6 @@ if [ "$PROCESS_TYPE" = "server" ]; then
             --log-level DEBUG \
             --access-logfile "-" \
             --error-logfile "-" \
-            seco.wsgi "$LOG_FILE" 2>&1 
+            archiver.wsgi "$LOG_FILE" 2>&1 
     fi
 fi
