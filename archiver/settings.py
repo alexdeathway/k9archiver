@@ -199,3 +199,23 @@ if DEBUG:
         'INTERCEPT_REDIRECTS': False,
     }
 
+#django summer note settings
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold','Italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link','picture', 'video','hr']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['height', ['height']]
+        ],
+    },
+    
+}

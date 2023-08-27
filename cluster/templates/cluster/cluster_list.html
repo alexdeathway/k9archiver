@@ -17,13 +17,13 @@
 
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
         {% for cluster in clusters %}  
-        <div>
-              <img class="object-cover object-center w-full h-32 rounded-lg lg:h-32" src="{{cluster.cover.url}}" alt="">
+        <div class="border-2 border-gray-300 rounded-lg p-1">
+              <img class="object-cover object-center w-full h-32  rounded-lg lg:h-32" src="{{cluster.cover.url}}" alt="">
 
               <div class="mt-4">
                   <span class="text-blue-500 uppercase">Cluster</span>
 
-                  <h1 class="mt-2 text-xl font-semibold text-gray-800 dark:text-white">
+                  <h1 class="mt-2 text-xl font-semibold  text-gray-800 dark:text-white">
                       {{cluster.cluster_name}}
                   </h1>
 

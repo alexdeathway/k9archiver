@@ -3,6 +3,7 @@ from django import forms
 from .models import ClusterModel,NoteModel
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
+cover_size_limit=1*1024*1024
 
 class ClusterCreationForm(forms.ModelForm):
     
@@ -20,6 +21,13 @@ class ClusterCreationForm(forms.ModelForm):
             "description",
             "permission",
         ]
+
+    #add limit for size of cover to 2MB
+    def clean_cover(self):
+        cover= self.cleaned_data['cover']
+        if cover.size > cover_size_limit:
+                raise forms.ValidationError("Sorry , you can only have 2MB for cover image") 
+        return cover
 
     def clean_code_name(self):
         code_name= self.cleaned_data['code_name']
