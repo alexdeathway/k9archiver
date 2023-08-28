@@ -2,10 +2,9 @@ import re
 from django import forms
 from .models import ClusterModel,NoteModel
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+from cluster.mixins import CoverFileSizeValidation
 
-cover_size_limit=1*1024*1024
-
-class ClusterCreationForm(forms.ModelForm):
+class ClusterCreationForm(forms.ModelForm,CoverFileSizeValidation):
     
     class Meta:
         model = ClusterModel
@@ -22,12 +21,7 @@ class ClusterCreationForm(forms.ModelForm):
             "permission",
         ]
 
-    #add limit for size of cover to 2MB
-    def clean_cover(self):
-        cover= self.cleaned_data['cover']
-        if cover.size > cover_size_limit:
-                raise forms.ValidationError("Sorry , you can only have 2MB for cover image") 
-        return cover
+
 
     def clean_code_name(self):
         code_name= self.cleaned_data['code_name']
@@ -35,7 +29,7 @@ class ClusterCreationForm(forms.ModelForm):
                 raise forms.ValidationError("Sorry , you can only have alphanumeric in Cluster code name") 
         return code_name
 
-class ClusterUpdateForm(forms.ModelForm):
+class ClusterUpdateForm(forms.ModelForm,CoverFileSizeValidation):
     
     class Meta:
         model = ClusterModel
@@ -58,7 +52,7 @@ class ClusterUpdateForm(forms.ModelForm):
                 raise forms.ValidationError("Sorry , you can only have alphanumeric in Cluster code name") 
         return code_name
 
-class NoteCreationForm(forms.ModelForm):
+class NoteCreationForm(forms.ModelForm,CoverFileSizeValidation):
     
     def __init__(self,*args, **kwargs):
             request=kwargs.pop("request")
@@ -80,12 +74,13 @@ class NoteCreationForm(forms.ModelForm):
             "body",
         ]
     def clean_code(self):
+        #'clean code'no pun intended
         code= self.cleaned_data['code']
         if not re.match(r'^[0-9a-zA-Z]*$',code):
                 raise forms.ValidationError("Sorry , you can only have alphanumeric in code name") 
         return code    
 
-class NoteUpdateForm(forms.ModelForm):
+class NoteUpdateForm(forms.ModelForm,CoverFileSizeValidation):
                             
     class Meta:
         model = NoteModel
@@ -112,7 +107,7 @@ class NoteUpdateForm(forms.ModelForm):
         
         
 
-class ClusterNoteCreationForm(forms.ModelForm):
+class ClusterNoteCreationForm(forms.ModelForm,CoverFileSizeValidation):
     
     def __init__(self,*args, **kwargs):
             code_name=kwargs.pop("cluster_code_name")
@@ -142,7 +137,7 @@ class ClusterNoteCreationForm(forms.ModelForm):
         return code    
 
 
-class ClusterOwnerNoteUpdateForm(forms.ModelForm):
+class ClusterOwnerNoteUpdateForm(forms.ModelForm,CoverFileSizeValidation):
                             
     class Meta:
         model = NoteModel
