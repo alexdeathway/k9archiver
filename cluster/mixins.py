@@ -1,5 +1,11 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin,UserPassesTestMixin
 from cluster.models import ClusterModel,NoteModel
+from django.conf import settings
+from django import forms
+
+cover_size_limit=settings.FILE_SIZE_LIMIT
+
+
 
 class ClusterOwnerPermission(PermissionRequiredMixin):
     """
@@ -40,3 +46,15 @@ class ClusterMemberPermission(PermissionRequiredMixin):
             return  user == note.author or user == note.cluster.owner or note.cluster.members.filter(id=user.id).exists()
        
 
+
+class CoverFileSizeValidation:
+    """
+    This mixin is used to validate the size of the cover image
+    """
+
+    def clean_cover(self):
+        cover=self.cleaned_data['cover']
+        if cover:
+            if cover.size > cover_size_limit:
+                raise forms.ValidationError("Sorry, the maximum allowed size for cover is 1MB")
+        return cover

@@ -199,3 +199,29 @@ if DEBUG:
         'INTERCEPT_REDIRECTS': False,
     }
 
+#enforces limit of 1MB for file upload
+FILE_SIZE_LIMIT=1024*1024
+
+#django summer note settings
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SUMMERNOTE_CONFIG = {
+    'summernote':{
+        'toolbar': [
+                        ['style', ['style']],
+                        ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript',
+                                  'strikethrough', 'clear']],
+                        ['fontname', ['fontname']],
+                        ['fontsize', ['fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'video', 'hr']],
+                        ['view', ['fullscreen', 'codeview']],
+                        ['help', ['help']],
+                    ],
+                },
+        'attachment_filesize_limit':FILE_SIZE_LIMIT,
+        'attachment_require_authentication': True,
+    
+}
