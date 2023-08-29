@@ -4,6 +4,7 @@ from cluster.models import ClusterModel,NoteModel
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import os, random, string 
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 User=get_user_model()
 
@@ -48,7 +49,8 @@ class TestView(TestCase):
         self.testnote=NoteModel.objects.create(
             author=self.user,
             title="Test Note",
-            cover=os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'),
+            #cover=os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'),
+            cover=SimpleUploadedFile(name='test_cover.jpeg', content=open(os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'), 'rb').read(), content_type='image/jpeg'),
             is_verified=False,
             is_verified_updated=False,
             code="testnoteview",
@@ -73,7 +75,9 @@ class TestView(TestCase):
             'code_name':'clusterviewposttest',
             'description':'This cluster is created for testing view clustercreate post',
             'permission':'PO',
+            'cover':SimpleUploadedFile(name='test_cover.jpeg', content=open(os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'), 'rb').read(), content_type='image/jpeg'),
         }
+
 
         #this get request is used to get and append csrf token to our data payload
         response_get=self.client.get(url)
@@ -110,6 +114,7 @@ class TestView(TestCase):
             'code_name':'clusterupdatetest',
             'description':'This cluster is created for testing view clustercreate post',
             'permission':'PO',
+            'cover':SimpleUploadedFile(name='test_cover.jpeg', content=open(os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'), 'rb').read(), content_type='image/jpeg'),
         }
 
         #this get request is used to get and append csrf token to our data payload
