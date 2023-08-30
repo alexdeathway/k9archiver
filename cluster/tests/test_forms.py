@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 import os, random, string 
 from cluster.forms import ClusterCreationForm,ClusterUpdateForm
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 User=get_user_model()
 
@@ -46,7 +47,9 @@ class TestForm(TestCase):
         self.testnote=NoteModel.objects.create(
             author=self.user,
             title="Note for Testing Form",
-            cover=os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'),
+            #upload image file to cover instead of joining path
+            #cover=os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'),
+            cover=SimpleUploadedFile(name='test_cover.jpeg', content=open(os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'), 'rb').read(), content_type='image/jpeg'),
             is_verified=False,
             is_verified_updated=False,
             code="testnoteview",
@@ -59,11 +62,13 @@ class TestForm(TestCase):
                 'code_name':'dummycluster',
                 'description':'This cluster is created for testing view clustercreate post',
                 'permission':'PO',
+                'cover':SimpleUploadedFile(name='test_cover.jpeg', content=open(os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'), 'rb').read(), content_type='image/jpeg'),
+                
             }
         self.note_dummy_data={
                 "title":"Note Dummy Data",
                 "code":"dummynote",
-                # "cover":,
+                "cover":SimpleUploadedFile(name='test_cover.jpeg', content=open(os.path.join(self.TEST_ASSETS_DIR,'images/test_cover.jpeg'), 'rb').read(), content_type='image/jpeg'),
                 "body":"This is dummy data used for testing forms.",
                 "cluster":self.testcluster,
                 }

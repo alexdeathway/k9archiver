@@ -106,6 +106,13 @@ GitHub.sublime-settings
 #secret Keys
 archiver/secret_keys.py
 
-#.env file
+#.env file and .operation.env file(.operation.env files are used for server operation)
 .env
 .operation.env
+
+
+# these images are uploading for testing purpose and should not be uploaded to git
+media/note_cover/test_cover.jpeg
+media/note_cover/test_cover_*.jpeg
+media/cluster_cover/test_cover.jpeg
+media/cluster_cover/test_cover_*.jpeg
