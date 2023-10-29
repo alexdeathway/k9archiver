@@ -163,16 +163,17 @@ USE_TZ = True
 #     '/var/www/static/',
 # ]
 
-STATIC_ROOT = 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL="users.User"
-MEDIA_ROOT='media'
-MEDIA_URL='/media/'
 CRISPY_TEMPLATE_PACK="tailwind"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL='home'
@@ -234,7 +235,7 @@ SUMMERNOTE_CONFIG = {
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 STATICFILES_STORAGE = "storages.backends.dropbox.DropboxStorage"
 #DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
-DROPBOX_ROOT_PATH = 'testdjangosupport'
+DROPBOX_ROOT_PATH = '/test/'
 DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
 DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET')
 DROPBOX_OAUTH2_REFRESH_TOKEN=os.environ.get('DROPBOX_OAUTH2_REFRESH_TOKEN')
