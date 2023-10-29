@@ -163,7 +163,7 @@ USE_TZ = True
 #     '/var/www/static/',
 # ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
 # Default primary key field type
@@ -171,7 +171,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL="users.User"
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_ROOT='media'
 MEDIA_URL='/media/'
 CRISPY_TEMPLATE_PACK="tailwind"
 LOGIN_URL = "login"
@@ -181,7 +181,7 @@ LOGIN_REDIRECT_URL='home'
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 DEFAULT_FROM_EMAIL=os.environ.get('DEFAULT_FROM_EMAIL')
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey' for sendgrid
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -229,7 +229,10 @@ SUMMERNOTE_CONFIG = {
         'attachment_require_authentication': True,
     
 }
+
+
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+STATICFILES_STORAGE = "storages.backends.dropbox.DropboxStorage"
 #DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
 DROPBOX_ROOT_PATH = 'testdjangosupport'
 DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
