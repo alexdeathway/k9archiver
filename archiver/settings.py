@@ -113,15 +113,6 @@ DATABASES = {
     }
 }
 
-if DEBUG:
-    #if DEBUG is False then we are in production and we want to use postgres.  
-    #Error will be raised if postgres is not available.
-    #otherwise in development we want to use sqlite or postgres if available.
-    if not(is_available.postgres_connection()):
-        DATABASES['default'] = DATABASES['sqlite'] 
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -186,23 +177,6 @@ EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey' for sendgrid
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-#django debug toolbar 
-if DEBUG:
-    MIDDLEWARE += [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    ]
-    INSTALLED_APPS += [
-        'debug_toolbar',
-    ]
-    INTERNAL_IPS = ['127.0.0.1', ]
-
-    
-    import mimetypes
-    mimetypes.add_type("application/javascript", ".js", True)
-
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
 
 #enforces limit of 1MB for file upload
 FILE_SIZE_LIMIT=1024*1024
@@ -235,7 +209,34 @@ SUMMERNOTE_CONFIG = {
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 STATICFILES_STORAGE = "storages.backends.dropbox.DropboxStorage"
 #DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
-DROPBOX_ROOT_PATH = '/test/'
+DROPBOX_ROOT_PATH = '/k9archiver/'
 DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
 DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET')
 DROPBOX_OAUTH2_REFRESH_TOKEN=os.environ.get('DROPBOX_OAUTH2_REFRESH_TOKEN')
+
+#django debug toolbar and other settings for development
+if DEBUG:
+    #if DEBUG is False then we are in production and we want to use postgres.  
+    #Error will be raised if postgres is not available.
+    #otherwise in development we want to use sqlite or postgres if available.
+    if not(is_available.postgres_connection()):
+        DATABASES['default'] = DATABASES['sqlite'] 
+
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+    INTERNAL_IPS = ['127.0.0.1', ]
+
+    
+    import mimetypes
+    mimetypes.add_type("application/javascript", ".js", True)
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
+
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
