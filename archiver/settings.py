@@ -105,7 +105,7 @@ DATABASES = {
         "PORT": os.environ.get("POSTGRES_PORT"),
         "USER": os.environ.get("POSTGRES_USER"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-        "NAME": os.environ.get("POSTGRES_DATABASE"),
+        "NAME": os.environ.get("POSTGRES_DB"),
     },
     "sqlite": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -113,6 +113,12 @@ DATABASES = {
     }
 }
 
+if DEBUG:
+    #if DEBUG is False then we are in production and we want to use postgres.  
+    #Error will be raised if postgres is not available.
+    #otherwise in development we want to use sqlite or postgres if available.
+    if not(is_available.postgres_connection()):
+        DATABASES['default'] = DATABASES['sqlite'] 
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
