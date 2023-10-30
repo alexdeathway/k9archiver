@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from .secgen import generate_secret_key
+from archiver import is_available
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -33,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #     from .secret_keys import SECRET_KEY 
 
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -41,7 +42,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 #SECRET_KEY=""
 DEBUG = os.environ.get('DEBUG', False) == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 # Application definition
 
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     'crispy_tailwind',
     'django_summernote',
+    'storages',
 ]
 
 
@@ -99,24 +101,17 @@ WSGI_APPLICATION = 'archiver.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-         "HOST": os.environ.get("POSTGRES_HOST"),
-         "PORT": os.environ.get("POSTGRES_PORT"),
-        # 'HOST': '172.20.0.2',
-        # 'PORT': '5432',
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
         "USER": os.environ.get("POSTGRES_USER"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-        "NAME": os.environ.get("POSTGRES_DB"),
+        "NAME": os.environ.get("POSTGRES_DATABASE"),
+    },
+    "sqlite": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 
 
 # Password validation
@@ -162,42 +157,26 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL="users.User"
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-MEDIA_URL='/media/'
 CRISPY_TEMPLATE_PACK="tailwind"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL='home'
 
 #email settings
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
-DEFAULT_FROM_EMAIL=os.getenv('DEFAULT_FROM_EMAIL')
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+DEFAULT_FROM_EMAIL=os.environ.get('DEFAULT_FROM_EMAIL')
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey' for sendgrid
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-#django debug toolbar 
-if DEBUG:
-    MIDDLEWARE += [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    ]
-    INSTALLED_APPS += [
-        'debug_toolbar',
-    ]
-    INTERNAL_IPS = ['127.0.0.1', ]
-
-    
-    import mimetypes
-    mimetypes.add_type("application/javascript", ".js", True)
-
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
 
 #enforces limit of 1MB for file upload
 FILE_SIZE_LIMIT=1024*1024
@@ -225,3 +204,39 @@ SUMMERNOTE_CONFIG = {
         'attachment_require_authentication': True,
     
 }
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+STATICFILES_STORAGE = "storages.backends.dropbox.DropboxStorage"
+#DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
+DROPBOX_ROOT_PATH = '/k9archiver/'
+DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
+DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET')
+DROPBOX_OAUTH2_REFRESH_TOKEN=os.environ.get('DROPBOX_OAUTH2_REFRESH_TOKEN')
+
+#django debug toolbar and other settings for development
+if DEBUG:
+    #if DEBUG is False then we are in production and we want to use postgres.  
+    #Error will be raised if postgres is not available.
+    #otherwise in development we want to use sqlite or postgres if available.
+    if not(is_available.postgres_connection()):
+        DATABASES['default'] = DATABASES['sqlite'] 
+
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+    INTERNAL_IPS = ['127.0.0.1', ]
+
+    
+    import mimetypes
+    mimetypes.add_type("application/javascript", ".js", True)
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
+
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
