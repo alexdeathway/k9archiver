@@ -113,12 +113,6 @@ DATABASES = {
     }
 }
 
-if DEBUG:
-    #if DEBUG is False then we are in production and we want to use postgres.  
-    #Error will be raised if postgres is not available.
-    #otherwise in development we want to use sqlite or postgres if available.
-    if not(is_available.postgres_connection()):
-        DATABASES['default'] = DATABASES['sqlite'] 
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -244,5 +238,10 @@ if DEBUG:
         'INTERCEPT_REDIRECTS': False,
     }
 
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+    #django storages settings for development
+    #if USE_DROPBOX_IN_DEVELOPMENT is True then we will use dropbox in development
+    #it is to test dropbox functionality in development
+    USE_DROPBOX_IN_DEVELOPMENT=os.environ.get('USE_DROPBOX_IN_DEVELOPMENT', False) == 'True'
+    if not(USE_DROPBOX_IN_DEVELOPMENT):
+        DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+        STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
