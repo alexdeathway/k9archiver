@@ -44,7 +44,7 @@
         {% endfor %}  
       </div>
    
-      <img class="lg:w-3/5 md:w-1/2 width-full object-cover object-center  rounded-lg md:mt-0 " src={% static 'archiver/assets/test_adjust_size_response.svg' %} alt="step">
+      <img class="lg:w-3/5 md:w-1/2 width-full object-cover object-center  rounded-lg md:mt-0 " src={% static 'archiver/assets/homepage.svg' %} alt="step">
    
   </div>
 </section>
@@ -122,7 +122,7 @@
                   <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                     <circle cx="12" cy="12" r="3"></circle>
-                  </svg>1.2K
+                  </svg>{{note.views_count}}
                 </span>
                 <p class="text-gray-400">{{note.author}}</p>
               </div>
@@ -134,37 +134,47 @@
     </div>
   </section>
 
+  <section class="bg-white dark:bg-gray-900">
+    <div class="container flex flex-col items-center px-4 py-12 mx-auto xl:flex-row">
+        <div class="flex  xl:w-1/2">
+            <img class="h-90" src={% static 'archiver/assets/open_source_project.png' %} alt="step">
+        </div>
 
-  <section class="text-gray-600 body-font">
-    <div class="container px-5 py-12 mx-auto flex flex-wrap">
-      <div class="flex w-full mb-20 flex-wrap">
-        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Gallery</h1>
-        <div class="h-1 w-20 bg-yellow-500 rounded"></div>
-      </div>
-      <div class="flex flex-wrap md:-m-2 -m-1">
-        <div class="flex flex-wrap w-1/2">
-          <div class="md:p-2 p-1 w-1/2">
-            <img alt="gallery" class="w-full object-cover h-full object-center block" src="{% get_media_prefix %}{{ gallery.0 }}">
-          </div>
-          <div class="md:p-2 p-1 w-1/2">
-            <img alt="gallery" class="w-full object-cover h-full object-center block" src="{% get_media_prefix %}{{ gallery.1 }}">
-          </div>
-          <div class="md:p-2 p-1 w-full">
-            <img alt="gallery" class="w-full h-full object-cover object-center block" src="{% get_media_prefix %}{{ gallery.2 }}">
-          </div>
+        <div class="flex flex-col items-center mt-6 xl:items-start xl:w-1/2 xl:mt-0">
+            <h2 class="text-2xl font-semibold tracking-tight text-gray-600 xl:text-3xl dark:text-white">
+                Do you know this project is open source!
+            </h2>
+
+            <p class="block max-w-2xl mt-4 text-gray-600 dark:text-gray-300">
+              You can actively participate in this project by contributing to its development, proposing new features and enhancements, you can also host your own independent instance."
+            </p>
+
+            <div class="mt-6 sm:-mx-2">
+                <a href="https://github.com/alexdeathway/k9archiver" target="_blank" class="inline-flex items-center justify-center w-full px-4 text-sm py-2.5 overflow-hidden text-gray-900 transition-colors duration-300 bg-white rounded-lg shadow sm:w-auto sm:mx-2 hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80">
+                  <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 496 512">
+                    <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/>
+                  </svg>
+
+                    <span class="mx-2 text-gray-800 font-bold">
+                        Github
+                    </span>
+                </a>
+
+                <a href="https://github.com/alexdeathway/k9archiver/issues/new" target="_blank"
+                    class="inline-flex items-center justify-center w-full px-4 text-sm py-2.5 mt-4 overflow-hidden text-white transition-colors duration-300 bg-yellow-300 rounded-lg shadow sm:w-auto sm:mx-2 sm:mt-0 hover:bg-yellow-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                      <path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+                    </svg>
+                    
+
+                    <span class="mx-2 font-bold">
+                        Suggest a feature
+                    </span>
+                </a>
+            </div>
         </div>
-        <div class="flex flex-wrap w-1/2">
-          <div class="md:p-2 p-1 w-full">
-            <img alt="gallery" class="w-full h-full object-cover object-center block" src="{% get_media_prefix %}{{ gallery.3 }}">
-          </div>
-          <div class="md:p-2 p-1 w-1/2">
-            <img alt="gallery" class="w-full object-cover h-full object-center block" src="{% get_media_prefix %}{{ gallery.4 }}">
-          </div>
-          <div class="md:p-2 p-1 w-1/2">
-            <img alt="gallery" class="w-full object-cover h-full object-center block" src="{% get_media_prefix %}{{ gallery.5 }}">
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+</section>
+
 {% endblock body %}

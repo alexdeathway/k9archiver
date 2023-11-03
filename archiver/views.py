@@ -10,7 +10,6 @@ class Home(TemplateView):
         context = super(Home,self).get_context_data(**kwargs)
         context["latest_events"] = NoteEventModel.objects.order_by('-id')[:5]
         context["latest_notes"] = NoteModel.objects.order_by('-id')[:6]
-        context["gallery"]= NoteModel.objects.values_list('cover',flat=True)[:6]
         context["most_active_clusters"] = ClusterModel.objects.annotate(
             event_model_count = Count('NoteModel_ClusterModel')).order_by('-event_model_count')[:3]
         return context
