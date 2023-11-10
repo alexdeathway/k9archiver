@@ -150,11 +150,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
-]
+     os.path.join(BASE_DIR,'static'),
+ ]
 
 
-STATIC_ROOT = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticroot')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
@@ -207,7 +207,7 @@ SUMMERNOTE_CONFIG = {
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-STATICFILES_STORAGE = "storages.backends.dropbox.DropboxStorage"
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'  #"storages.backends.dropbox.DropboxStorage"
 #DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
 DROPBOX_ROOT_PATH = '/k9archiver/'
 DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
