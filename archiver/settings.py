@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     "crispy_forms",
     'crispy_tailwind',
@@ -66,6 +67,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -154,7 +156,7 @@ STATICFILES_DIRS = [
  ]
 
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticroot')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
@@ -207,7 +209,7 @@ SUMMERNOTE_CONFIG = {
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'  #"storages.backends.dropbox.DropboxStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"  #"storages.backends.dropbox.DropboxStorage"
 #DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
 DROPBOX_ROOT_PATH = '/k9archiver/'
 DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
