@@ -24,7 +24,7 @@ jobs:
         run: docker-compose -f docker-compose.yml up -d --build
 
       - name: Wait for Django to start
-        run: sleep 10s
+        run: sleep 20s
 
       - name: Run Django tests
         run: docker exec k9archiver_django python manage.py test
