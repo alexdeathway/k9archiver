@@ -246,4 +246,4 @@ if DEBUG:
     USE_DROPBOX_IN_DEVELOPMENT=os.environ.get('USE_DROPBOX_IN_DEVELOPMENT', False) == 'True'
     if not(USE_DROPBOX_IN_DEVELOPMENT):
         DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-        STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+        

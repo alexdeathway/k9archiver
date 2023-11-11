@@ -118,4 +118,6 @@ media/cluster_cover/test_cover.jpeg
 media/cluster_cover/test_cover_*.jpeg
 
 #these files are collected by collectstatic command and should not be uploaded to git
-staticfiles/
+#remove all files and folder except donot.delete 
+staticfiles/*
+!staticfiles/donotdelete.conf
