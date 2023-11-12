@@ -27,7 +27,7 @@ services:
         ports:
             - 8000:8000
         volumes:
-            - static_files:/app/static
+            - static_files:/app/staticfiles
             - media_files:/app/media
 
     postgres:
@@ -53,7 +53,7 @@ services:
         env_file:
             - .env
         volumes:
-            - static_files:/app/static:ro
+            - static_files:/app/staticfiles:ro
             - media_files:/app/media:ro
             - certbot_web:/vol/www:ro
             - certbot_certs:/etc/letsencrypt/:ro
