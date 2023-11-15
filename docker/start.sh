@@ -2,7 +2,6 @@
 
 cd /app
 
-LOG_FILE="logfile.log" 
 
 if [ $# -eq 0 ]; then
     echo "Usage: start.sh [PROCESS_TYPE](server)"
@@ -29,6 +28,6 @@ if [ "$PROCESS_TYPE" = "server" ]; then
             --log-level DEBUG \
             --access-logfile "-" \
             --error-logfile "-" \
-            archiver.wsgi >> "$LOG_FILE" 2>&1
+            archiver.wsgi >> "$GUNICORN_LOG_FILE" 2>&1
     fi
 fi
