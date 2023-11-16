@@ -3,11 +3,10 @@
 {% load static %}
 
 
-
 <section class="text-gray-600 body-font">
-  <div class=" container px-2  mx-auto flex flex-wrap">
+  <div class="container px-2 mx-auto flex flex-wrap">
     <div class="mt-24 flex flex-wrap w-full">
-      <div class="lg:w-2/5 md:w-1/2 md:pr-10  border-orange-500 md:py-6">
+      <div class="lg:w-2/5 md:w-1/2 md:pr-10 border-orange-500 md:py-6">
 
         {% for event in latest_events %}   
         <div class="flex relative pb-12">
@@ -41,13 +40,12 @@
             </p>
           </div>
           </div>
-        {% endfor %}  
+        {% endfor %}    
       </div>
-   
-      <img class="lg:w-3/5 md:w-1/2 width-full object-cover object-center  rounded-lg md:mt-0 " src={% static 'assets/homepage.svg' %} alt="step">
-      {% comment %} <img class="lg:w-3/5 md:w-1/2 width-full object-cover object-center  rounded-lg md:mt-0 " src="https://uca3e4ea8ddecbf84ee7620004e9.dl.dropboxusercontent.com/cd/0/get/CHNjbvmr8fAeqnMQkPKOGgxYSnU1XkhlRzE4WICX0-aJZUVQZN-r_OsIKzxd65vDnwOgS1pVjpG-mqKOicbq_AJPUvz1tDa03MEDQZUClmmM3nX1WFJPfTtG5rt-IjWRjphHTDJDmO4whjR5pezR0TxwFoGRSj6BaMDrMpjP9-S3NA/file" alt="step">
-     {% endcomment %}
+
+      <img class="lg:w-3/5 md:w-1/2 max-w-full h-auto rounded-lg md:mt-0" src="{% static 'assets/homepage.svg' %}" alt="step">
     </div>
+  </div>
 </section>
 
 
