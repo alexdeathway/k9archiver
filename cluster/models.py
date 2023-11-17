@@ -81,3 +81,12 @@ class NoteStatsViewModel(models.Model):
 # class BookMarkModel(models.Model):
 #     bookmarked=models.ForeignKey("app.Model", verbose_name=_("test"), on_delete=models.CASCADE)
 
+class CliffNoteModel(models.Model):
+    title=models.CharField(max_length=50)
+    body=models.TextField(max_length=500,default="Empty")
+    author=models.ForeignKey(User,on_delete=models.CASCADE,related_name="CliffNoteModel_User")
+    pinned=models.BooleanField(default=False)
+    date=models.DateField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.title} by {self.author}"

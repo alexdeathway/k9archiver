@@ -5,7 +5,7 @@
 
 <section class="text-gray-600 body-font">
   <div class="container px-2 mx-auto flex flex-wrap">
-    <div class="mt-24 flex flex-wrap w-full">
+    <div class="mt-20 flex flex-wrap w-full">
       <div class="lg:w-2/5 md:w-1/2 md:pr-10 border-orange-500 md:py-6">
 
         {% for event in latest_events %}   
@@ -48,7 +48,75 @@
   </div>
 </section>
 
+{% if pinned_cliffnotes %}
+<div class="px-4 py-20 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-8 pd-4">
+  
+  <div class="grid gap-8 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
+    {% for cliffnotes in pinned_cliffnotes   %}
+      <div class="p-8 bg-white border rounded shadow-sm">
+        <p class="mb-3 text-xs font-semibold tracking-wide uppercase">
+          <a href="/" class="transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800" aria-label="Category">{{cliffnotes.title|upper }}</a>
+          <span class="text-gray-600">— {{cliffnotes.date|date:"d M, Y"}}</span>
+          <span>
+            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+             <path d="M32 32C32 14.3 46.3 0 64 0H320c17.7 0 32 14.3 32 32s-14.3 32-32 32H290.5l11.4 148.2c36.7 19.9 65.7 53.2 79.5 94.7l1 3c3.3 9.8 1.6 20.5-4.4 28.8s-15.7 13.3-26 13.3H32c-10.3 0-19.9-4.9-26-13.3s-7.7-19.1-4.4-28.8l1-3c13.8-41.5 42.8-74.8 79.5-94.7L93.5 64H64C46.3 64 32 49.7 32 32zM160 384h64v96c0 17.7-14.3 32-32 32s-32-14.3-32-32V384z"/>
+            </svg>
+          </span>  
+        </p>
+        {% comment %} <a href="/" aria-label="Article" title="Jingle Bells" class="inline-block mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400">Jingle Bells</a> {% endcomment %}
+        <p class="text-sm mb-5 text-gray-700">
+          {{cliffnotes.body}}
+        </p>
+        <div class="flex items-center">
+          <a href="/" aria-label="Author" title="Author" class="mr-3">
+            <img src="{{cliffnotes.author.profile_picture.url}}" alt="avatar" class="object-cover w-10 h-10 rounded-full shadow-sm" />
+          </a>
+          <div>
+            <a href="/" aria-label="Author" title="Author" class="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400">{{cliffnotes.author}}</a>
+            <p class="text-sm font-medium leading-4 text-gray-600">Author</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 
+</div> 
+{% endif %}
+
+{% if latest_cliffnotes %}
+<div class="px-4 py-20 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-8">
+  
+  <div class="grid gap-8 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
+    {% for cliffnotes in latest_cliffnotes   %}
+      <div class="p-8 bg-white border rounded shadow-sm">
+        <p class="mb-3 text-xs font-semibold tracking-wide uppercase">
+          <a href="/" class="transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800" aria-label="Category">{{cliffnotes.title|upper }}</a>
+          <span class="text-gray-600">— {{cliffnotes.date|date:"d M, Y"}}</span>
+          {% comment %} <span>
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+              <path d="M368.4 18.3L312.7 74.1 437.9 199.3l55.7-55.7c21.9-21.9 21.9-57.3 0-79.2L447.6 18.3c-21.9-21.9-57.3-21.9-79.2 0zM288 94.6l-9.2 2.8L134.7 140.6c-19.9 6-35.7 21.2-42.3 41L3.8 445.8c-3.8 11.3-1 23.9 7.3 32.4L164.7 324.7c-3-6.3-4.7-13.3-4.7-20.7c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48c-7.4 0-14.4-1.7-20.7-4.7L33.7 500.9c8.6 8.3 21.1 11.2 32.4 7.3l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1 2.8-9.2L288 94.6z"/>
+            </svg>
+          </span>   {% endcomment %}
+        </p>
+        
+        <p class="text-sm mb-5 text-gray-700">
+          {{cliffnotes.body}}
+        </p>
+        <div class="flex items-center">
+          <a href="/" aria-label="Author" title="Author" class="mr-3">
+            <img src="{{cliffnotes.author.profile_picture.url}}" alt="avatar" class="object-cover w-10 h-10 rounded-full shadow-sm" />
+          </a>
+          <div>
+            <a href="/" aria-label="Author" title="Author" class="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400">{{cliffnotes.author}}</a>
+            <p class="text-sm font-medium leading-4 text-gray-600">Author</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</div> 
+{% endif %}
 
 <section class="text-gray-600   body-font">
   <div class="container px-5  mx-auto">
