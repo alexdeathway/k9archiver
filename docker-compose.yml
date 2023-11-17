@@ -24,7 +24,7 @@ services:
             - 8000:8000
         volumes:
             - .:/app
-            - static_files:/app/static
+            - static_files:/app/staticfiles
             - media_files:/app/media
 
     postgres:

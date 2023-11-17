@@ -95,14 +95,11 @@
               <div class="w-32 h-full bg-yellow-500"></div>
             </div>                   
     </div>
-<main class="pt-6 pb-16 lg:pt-16 lg:pb-24 flex flex-inline bg-white dark:bg-gray-900">
-  <div class="h-12 w-12 bg-yellow-500"></div>
-  <div class="flex justify-between  mx-auto max-w-screen-xl ">
-    <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
-      {{note.body|safe }}
-    </article>
-  </div> 
-</main>
 </section>
-
+<section class="max-w-5xl px-6 py-8 mx-auto bg-white dark:bg-gray-900">
+  <div class="w-full mt-6">
+    <!-- You can use Markdown or HTML to display the article body -->
+    {{ note.body | safe }}
+  </div>
+</section>
 {% endblock body %}
