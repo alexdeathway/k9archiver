@@ -222,7 +222,7 @@ class NoteUpdateView(ClusterMemberPermission,UpdateView):
     
 
     def get_success_url(self):
-        return reverse("cluster:notedetail",kwargs={"cluster":self.get_object().cluster__code_name,"code":self.get_object().code})
+        return reverse("cluster:notedetail",kwargs={"cluster":self.get_object().cluster.code_name,"code":self.get_object().code})
 
 class NoteDeleteView(ClusterMemberPermission,DeleteView):
     template_name="cluster/note_delete.html"
@@ -339,15 +339,10 @@ class ClusterOwnerNoteUpdateView(ClusterOwnerPermission,UpdateView):
             event.save()
         return super(ClusterOwnerNoteUpdateView,self).form_valid(form)  
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     note=self.get_object()
-    #     requesting_user=self.request.user
-    #     if requesting_user != note.cluster.owner:
-    #         raise Http404("Knock knock , Not you!")
-    #     return super().dispatch(request, *args, **kwargs)
     
     def get_success_url(self):
-        return reverse("cluster:clusterlist")
+        return reverse("cluster:notedetail",kwargs={"cluster":self.get_object().cluster.code_name,"code":self.get_object().code})
+
 
 class AddUserToCluster(ClusterOwnerPermission,FormView):
     template_name = 'cluster/add_user_to_cluster.html'
