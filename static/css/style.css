@@ -730,6 +730,10 @@ video {
   margin-bottom: 1rem;
 }
 
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
 .mb-6 {
   margin-bottom: 1.5rem;
 }
@@ -1010,8 +1014,12 @@ video {
   max-width: 56rem;
 }
 
-.max-w-screen-xl {
-  max-width: 1280px;
+.max-w-5xl {
+  max-width: 64rem;
+}
+
+.max-w-full {
+  max-width: 100%;
 }
 
 .flex-shrink-0 {
@@ -1481,6 +1489,11 @@ video {
   padding-bottom: 0.625rem;
 }
 
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
 .py-24 {
   padding-top: 6rem;
   padding-bottom: 6rem;
@@ -1513,10 +1526,6 @@ video {
 
 .pb-12 {
   padding-bottom: 3rem;
-}
-
-.pb-16 {
-  padding-bottom: 4rem;
 }
 
 .pb-6 {
@@ -1557,10 +1566,6 @@ video {
 
 .pt-4 {
   padding-top: 1rem;
-}
-
-.pt-6 {
-  padding-top: 1.5rem;
 }
 
 .pt-8 {
@@ -1639,6 +1644,14 @@ video {
   font-style: italic;
 }
 
+.leading-4 {
+  line-height: 1rem;
+}
+
+.leading-5 {
+  line-height: 1.25rem;
+}
+
 .leading-none {
   line-height: 1;
 }
@@ -1651,6 +1664,10 @@ video {
   line-height: 1.625;
 }
 
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+
 .tracking-wide {
   letter-spacing: 0.025em;
 }
@@ -1661,6 +1678,11 @@ video {
 
 .tracking-widest {
   letter-spacing: 0.1em;
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .text-blue-500 {
@@ -1843,6 +1865,10 @@ video {
   transition-duration: 150ms;
 }
 
+.duration-200 {
+  transition-duration: 200ms;
+}
+
 .duration-300 {
   transition-duration: 300ms;
 }
@@ -1888,6 +1914,11 @@ video {
 .hover\:bg-gray-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-green-100:hover {
@@ -2008,6 +2039,11 @@ video {
   --tw-ring-color: rgb(147 197 253 / var(--tw-ring-opacity));
 }
 
+.focus\:ring-gray-300:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(209 213 219 / var(--tw-ring-opacity));
+}
+
 .focus\:ring-yellow-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(253 224 71 / var(--tw-ring-opacity));
@@ -2086,6 +2122,11 @@ video {
     border-color: rgb(147 197 253 / var(--tw-border-opacity));
   }
 
+  .dark\:hover\:bg-gray-700:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  }
+
   .dark\:focus\:placeholder-transparent:focus::-moz-placeholder {
     color: transparent;
   }
@@ -2096,6 +2137,21 @@ video {
 }
 
 @media (min-width: 640px) {
+  .sm\:-mx-2 {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+
+  .sm\:mx-2 {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .sm\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .sm\:mb-0 {
     margin-bottom: 0px;
   }
@@ -2126,6 +2182,18 @@ video {
 
   .sm\:w-2\/3 {
     width: 66.666667%;
+  }
+
+  .sm\:w-auto {
+    width: auto;
+  }
+
+  .sm\:max-w-sm {
+    max-width: 24rem;
+  }
+
+  .sm\:max-w-xl {
+    max-width: 36rem;
   }
 
   .sm\:flex-row {
@@ -2238,6 +2306,10 @@ video {
     width: 25%;
   }
 
+  .md\:max-w-full {
+    max-width: 100%;
+  }
+
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2269,6 +2341,11 @@ video {
 
   .md\:p-2 {
     padding: 0.5rem;
+  }
+
+  .md\:px-24 {
+    padding-left: 6rem;
+    padding-right: 6rem;
   }
 
   .md\:px-8 {
@@ -2350,6 +2427,18 @@ video {
     width: 60%;
   }
 
+  .lg\:max-w-full {
+    max-width: 100%;
+  }
+
+  .lg\:max-w-screen-xl {
+    max-width: 1280px;
+  }
+
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .lg\:flex-row {
     flex-direction: row;
   }
@@ -2364,12 +2453,9 @@ video {
     padding-right: 2rem;
   }
 
-  .lg\:pb-24 {
-    padding-bottom: 6rem;
-  }
-
-  .lg\:pt-16 {
-    padding-top: 4rem;
+  .lg\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   .lg\:text-3xl {
@@ -2379,7 +2465,28 @@ video {
 }
 
 @media (min-width: 1280px) {
+  .xl\:mt-0 {
+    margin-top: 0px;
+  }
+
+  .xl\:w-1\/2 {
+    width: 50%;
+  }
+
   .xl\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .xl\:flex-row {
+    flex-direction: row;
+  }
+
+  .xl\:items-start {
+    align-items: flex-start;
+  }
+
+  .xl\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 }

@@ -3,7 +3,7 @@ module.exports = {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
     },
-    purge: {
+    content: {
         enabled: true, //true for production build
         content: [
             '../**/templates/*.html',
@@ -16,4 +16,4 @@ module.exports = {
     variants: {},
     plugins: [],
   }
-  //tailwindcss  build ./static/css/tailwind.css -o ./static/css/style.css && cleancss -o ./static/css/style.min.css ./static/css/style.css
+  //tailwindcss  build -i ./static/css/tailwind.css -o ./static/css/style.css && cleancss -o ./static/css/style.min.css ./static/css/style.css
