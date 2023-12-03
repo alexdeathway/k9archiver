@@ -53,4 +53,3 @@ urllib3==1.26.18
 webencodings==0.5.1
 whitenoise==6.6.0
 wrapt==1.13.3
-boto3==1.33.6
