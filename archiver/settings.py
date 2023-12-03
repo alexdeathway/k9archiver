@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from .secgen import generate_secret_key
-from archiver import is_available
+from archiver import is_available,storage_backend
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -154,10 +154,8 @@ USE_TZ = True
 STATICFILES_DIRS = [
      os.path.join(BASE_DIR,'static'),
  ]
-
-
+STATIC_URL='/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-STATIC_URL = '/static/'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'
@@ -204,18 +202,36 @@ SUMMERNOTE_CONFIG = {
                 },
         'attachment_filesize_limit':FILE_SIZE_LIMIT,
         'attachment_require_authentication': True,
-    
+        'attachment_absolute_uri': True,
+        'attachment_storage_class':'archiver.storage_backend.MediaStorage',
+
 }
 
 
-DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"  #"storages.backends.dropbox.DropboxStorage"
-#DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
+#DEFAULT_FILE_STORAGE = 'archiver.storage_backend.MediaStorage'
+DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropboxStorage"
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  
+STATICFILES_STORAGE ="whitenoise.storage.CompressedManifestStaticFilesStorage"
+#dropbox settings
 DROPBOX_ROOT_PATH = '/k9archiver/'
 DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
 DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET')
 DROPBOX_OAUTH2_REFRESH_TOKEN=os.environ.get('DROPBOX_OAUTH2_REFRESH_TOKEN')
 
+#[V-dev4.1.0] AWS/Backblaze settings for Media Storage
+AWS_ACCESS_KEY_ID =os.environ.get('AWS_ACCESS_KEY_ID')             #b2 application key id if using backblaze'
+AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')     #your b2 application key
+AWS_STORAGE_BUCKET_NAME =os.environ.get('AWS_STORAGE_BUCKET_NAME') #'<a public bucket>'
+AWS_S3_REGION_NAME =os.environ.get('AWS_S3_REGION_NAME')           #'<your b2 region - e.g. us-west-001>'
+
+AWS_S3_ENDPOINT = f's3.{AWS_S3_REGION_NAME}.backblazeb2.com'
+AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_ENDPOINT}'
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+#STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_ENDPOINT}/"
 #django debug toolbar and other settings for development
 if DEBUG:
     #if DEBUG is False then we are in production and we want to use postgres.  
@@ -241,9 +257,11 @@ if DEBUG:
     }
 
     #django storages settings for development
-    #if USE_DROPBOX_IN_DEVELOPMENT is True then we will use dropbox in development
-    #it is to test dropbox functionality in development
-    USE_DROPBOX_IN_DEVELOPMENT=os.environ.get('USE_DROPBOX_IN_DEVELOPMENT', False) == 'True'
-    if not(USE_DROPBOX_IN_DEVELOPMENT):
+    #if USE_LOCAL_STORAGE is True then we will use local storage in development
+    USE_LOCAL_STORAGE=os.environ.get('USE_LOCAL_STORAGE', False) == 'True'
+    if USE_LOCAL_STORAGE:
+        STATIC_URL='/static/'
+        MEDIA_URL='/media/'
+        STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
         DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
         
