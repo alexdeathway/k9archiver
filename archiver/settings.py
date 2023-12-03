@@ -154,12 +154,11 @@ USE_TZ = True
 STATICFILES_DIRS = [
      os.path.join(BASE_DIR,'static'),
  ]
-
-
+STATIC_URL='/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-
+MEDIA_URL='/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -203,12 +202,13 @@ SUMMERNOTE_CONFIG = {
                 },
         'attachment_filesize_limit':FILE_SIZE_LIMIT,
         'attachment_require_authentication': True,
-
 }
 
 
-DEFAULT_FILE_STORAGE = 'archiver.storage_backend.MediaStorage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  
+#DEFAULT_FILE_STORAGE = 'archiver.storage_backend.MediaStorage'
+DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropboxStorage"
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  
+STATICFILES_STORAGE ="whitenoise.storage.CompressedManifestStaticFilesStorage"
 #dropbox settings
 DROPBOX_ROOT_PATH = '/k9archiver/'
 DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
