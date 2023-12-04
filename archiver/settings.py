@@ -202,6 +202,9 @@ SUMMERNOTE_CONFIG = {
                 },
         'attachment_filesize_limit':FILE_SIZE_LIMIT,
         'attachment_require_authentication': True,
+        'attachment_absolute_uri': True,
+        'attachment_storage_class':'archiver.storage_backend.MediaStorage',
+
 }
 
 
@@ -228,7 +231,7 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 
-STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_ENDPOINT}/"
+#STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_ENDPOINT}/"
 #django debug toolbar and other settings for development
 if DEBUG:
     #if DEBUG is False then we are in production and we want to use postgres.  
