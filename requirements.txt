@@ -15,7 +15,7 @@ django-crispy-forms==1.13.0
 django-debug-toolbar==3.5.0
 django-ipware==5.0.0
 django-storages==1.14.2
-django-summernote @ https://github.com/alexdeathway/django-summernote/archive/refs/tags/patch.zip
+django-summernote @ https://github.com/alexdeathway/django-summernote/archive/refs/tags/patch-0.2.zip
 dnspython==2.2.1
 dparse==0.5.2
 dropbox==11.36.2
