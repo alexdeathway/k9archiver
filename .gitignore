@@ -111,7 +111,7 @@ archiver/secret_keys.py
 .operation.env
 
 
-# these images are uploading for testing purpose and should not be uploaded to git
+# these images are uploaded for testing purpose and should not be uploaded to git
 media/note_cover/test_cover.jpeg
 media/note_cover/test_cover_*.jpeg
 media/cluster_cover/test_cover.jpeg
