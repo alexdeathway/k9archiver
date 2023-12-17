@@ -27,6 +27,10 @@ jobs:
         run: |
           timeout=120  # Increase the timeout to 2 minutes
           start_time=$(date +%s)
+          
+          # Add a delay before the first curl request
+          sleep 10
+          
           while true; do
             echo "Checking if Django is ready..."
             http_status_code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000)
