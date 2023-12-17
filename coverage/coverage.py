@@ -28,7 +28,7 @@ def generate_badge_data(coverage_file):
 
     badge_data = {
         "schemaVersion": 1,
-        "label": "coverage",
+        "label": "code coverage",
         "message": f"{round(coverage_percentage)}%",
         "color": color
     }
@@ -36,8 +36,8 @@ def generate_badge_data(coverage_file):
     return json.dumps(badge_data, indent=4)
 
 if __name__=="__main__":
-    #coverage json --pretty-print -o coverage.json 
+    #coverage json --pretty-print -o coverage/coverage.json 
     #write data to badge.json
-    badge_data = generate_badge_data('coverage.json')
-    with open('badge.json', 'w') as f:
+    badge_data = generate_badge_data('coverage/coverage.json')
+    with open('coverage/badge.json', 'w') as f:
         f.write(badge_data)
