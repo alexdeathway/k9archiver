@@ -2,7 +2,8 @@
 <div align="center">
 <img width="300" src="./docs/logo/k9archiver_transparent_project_logo.png"  alt="logo"/>
 
-[![Django Project Test](https://github.com/alexdeathway/k9archiver/actions/workflows/test.yaml/badge.svg)](https://github.com/alexdeathway/k9archiver/actions/workflows/test.yaml)  [![Build](https://github.com/alexdeathway/k9archiver/actions/workflows/deploy.yaml/badge.svg)](https://github.com/alexdeathway/k9archiver/actions/workflows/deploy.yaml)
+[![Django Project Test](https://github.com/alexdeathway/k9archiver/actions/workflows/test.yaml/badge.svg)](https://github.com/alexdeathway/k9archiver/actions/workflows/test.yaml)  [![Build](https://github.com/alexdeathway/k9archiver/actions/workflows/deploy.yaml/badge.svg)](https://github.com/alexdeathway/k9archiver/actions/workflows/deploy.yaml)  [![coverage](https://img.shields.io/endpoint.svg?url=https://raw.githubusercontent.com/alexdeathway/k9archiver/master/coverage/badge.json)](https://github.com/alexdeathway/k9archiver/blob/master/coverage/badge.json) [![issues](https://img.shields.io/github/issues/alexdeathway/k9archiver)](https://github.com/alexdeathway/k9archiver/issues)
+
 </div>
 <hr>
 
