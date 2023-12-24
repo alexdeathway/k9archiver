@@ -108,6 +108,7 @@ DATABASES = {
         "USER": os.environ.get("POSTGRES_USER"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
         "NAME": os.environ.get("POSTGRES_DB"),
+        "CONN_MAX_AGE": os.environ.get("POSTGRES_CONN_MAX_AGE", 60)
     },
     "sqlite": {
         "ENGINE": "django.db.backends.sqlite3",
