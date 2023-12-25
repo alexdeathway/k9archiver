@@ -4,19 +4,7 @@ from cluster.models import ClusterModel,NoteModel
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import random, datetime, os,string
-from cluster.views import (
-                        ClusterListView,
-                        ClusterCreateView,
-                        ClusterDetailView,
-                        ClusterUpdateView,
-                        ClusterDeleteView,
-                        ClusterNoteCreateView,
-                        ClusterOwnerNoteUpdateView,
-                        NoteCreateView,
-                        NoteUpdateView,
-                        NoteDetailView,
-                        NoteDeleteView,
-                    )  
+from users.views import UserSignupView,UserProfileView,UserProfileUpdateView
 
 
 User=get_user_model()
@@ -49,7 +37,12 @@ class TestUrl(TestCase):
         self.user_dummy_username='testuser'
         self.user_dummy_password=dummy_password()
         
-        self.user = User.objects.create_user(username=self.user_dummy_username, password=self.user_dummy_password)
+        self.user = User.objects.create_user(
+            username=self.user_dummy_username, 
+            password=self.user_dummy_password,
+            profile_picture=os.path.join(self.TEST_ASSETS_DIR,'images/test_profile_picture.jpeg'),
+            )
+        
         self.testcluster=ClusterModel.objects.create(
             cluster_name="Test Cluster",
             code_name="testcluster",
@@ -73,4 +66,27 @@ class TestUrl(TestCase):
     
     '''
     Users Url test begins here
+    '''
+
+    def test_user_profile_view(self):
+        self.client.login(username=self.user_dummy_username, password=self.user_dummy_password)
+        url = reverse('users:profile', args=[self.user_dummy_username])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_user_profile_update_view(self):
+        self.client.login(username=self.user_dummy_username, password=self.user_dummy_password)
+        url = reverse('users:profileupdate', args=[self.user_dummy_username])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_user_invite_view(self):
+        self.client.login(username=self.user_dummy_username, password=self.user_dummy_password)
+        url = reverse('users:invite')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+
+    '''
+    Cluster Url test against views begins here 
     '''
