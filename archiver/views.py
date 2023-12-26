@@ -13,6 +13,6 @@ class Home(TemplateView):
         context["latest_cliffnotes"] = CliffNoteModel.objects.filter(pinned=False).order_by('-id')[:3]
         context["pinned_cliffnotes"]=CliffNoteModel.objects.filter(pinned=True)[:3]
         context["most_active_clusters"] = ClusterModel.objects.annotate(
-            event_model_count = Count('NoteModel_ClusterModel')).order_by('-event_model_count')[:3]
+            event_model_count = Count('NoteModel_ClusterModel')).order_by('-event_model_count')[:2]
         return context
     
