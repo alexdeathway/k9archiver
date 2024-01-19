@@ -9,6 +9,7 @@ class Home(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Home,self).get_context_data(**kwargs)
         context["latest_events"] = NoteEventModel.objects.order_by('-id')[:5]
+        context["pinned_notes"] = NoteModel.objects.filter(pinned=True).order_by('-id')[:3]
         context["latest_notes"] = NoteModel.objects.order_by('-id')[:6]
         context["latest_cliffnotes"] = CliffNoteModel.objects.filter(pinned=False).order_by('-id')[:3]
         context["pinned_cliffnotes"]=CliffNoteModel.objects.filter(pinned=True)[:3]
