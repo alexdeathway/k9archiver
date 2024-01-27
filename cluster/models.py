@@ -32,7 +32,7 @@ class NoteModel(models.Model):
     is_verified_updated=models.BooleanField(default=False)
     code=models.CharField(max_length=20,unique=True)
     summary=models.CharField(max_length=250,default="None")
-    body=models.TextField(max_length=100000,default="Empty")
+    body=models.TextField(max_length=1000000,default="Empty")
     cluster=models.ForeignKey("ClusterModel", on_delete=models.CASCADE,related_name="NoteModel_ClusterModel")
 
     @property
