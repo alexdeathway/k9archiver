@@ -28,7 +28,7 @@ mccabe==0.6.1  # McCabe checker, plugin for flake8
 mypy-extensions==0.4.3  # Experimental type system extensions for programs checked with the mypy typechecker
 packaging==21.3  # Core utilities for Python packages
 pathspec==0.9.0  # Utility library for gitignore style pattern matching of file paths
-Pillow==10.2.0  # Python Imaging Library (Fork)
+Pillow==10.3.0  # Python Imaging Library (Fork)
 platformdirs==2.5.1  # Python library for determining appropriate platform-specific dirs
 ply==3.11  # Python Lex & Yacc
 podman-compose==1.0.3  # Script to allow using docker-compose with Podman
