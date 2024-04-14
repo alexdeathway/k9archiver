@@ -18,7 +18,7 @@ django-summernote @ https://github.com/alexdeathway/django-summernote/archive/re
 dnspython==2.2.1  # DNS toolkit for Python
 dparse==0.5.2  # A parser for Python dependency files
 dropbox==11.36.2  # Official Dropbox API Client
-eventlet==0.33.3  # Concurrent networking library for Python
+eventlet==0.35.2  # Concurrent networking library for Python
 greenlet==3.0.1  # Lightweight in-process concurrent programming
 gunicorn==21.2.0  # WSGI HTTP Server for UNIX
 idna==3.4  # Internationalized Domain Names in Applications (IDNA)
