@@ -8,7 +8,7 @@ charset-normalizer==3.3.1  # The Real First Universal Charset Detector
 click==8.0.4  # A package for creating beautiful command line interfaces in a composable way
 commonmark==0.9.1  # Python parser for the CommonMark Markdown spec
 crispy-tailwind==0.5.0  # A crispy-forms layout helper for Tailwind CSS
-Django==3.2.24  # A high-level Python Web framework
+Django==3.2.25  # A high-level Python Web framework
 django-cors-headers==4.3.0  # Django app for handling the server headers required for Cross-Origin Resource Sharing (CORS)
 django-crispy-forms==1.13.0  # The best way to have Django DRY forms
 django-debug-toolbar==3.5.0  # A configurable set of panels displaying various debug information about the current request/response
