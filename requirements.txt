@@ -15,7 +15,7 @@ django-debug-toolbar==3.5.0  # A configurable set of panels displaying various d
 django-ipware==5.0.0  # A Django application to retrieve user's IP address
 django-storages==1.14.2  # A collection of custom storage backends for Django
 django-summernote @ https://github.com/alexdeathway/django-summernote/archive/refs/tags/patch-0.2.zip  #custom patched version Summernote WYSIWYG editor's package
-dnspython==2.2.1  # DNS toolkit for Python
+dnspython==2.6.1  # DNS toolkit for Python
 dparse==0.5.2  # A parser for Python dependency files
 dropbox==11.36.2  # Official Dropbox API Client
 eventlet==0.33.3  # Concurrent networking library for Python
