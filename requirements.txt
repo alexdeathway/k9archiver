@@ -1,56 +1,56 @@
-asgiref==3.4.1  # ASGI (Asynchronous Server Gateway Interface) compatibility library for Django
-astroid==2.8.6  # A common base representation of python source code for pylint and other projects
-asttokens==2.2.1  # Annotates Python AST trees with the positions of tokens and text in the source code
-black==22.1.0  # The uncompromising Python code formatter
-bleach==4.1.0  # An easy whitelist-based HTML-sanitizing tool
-certifi==2023.7.22  # Python package for providing Mozilla's CA Bundle
-charset-normalizer==3.3.1  # The Real First Universal Charset Detector
-click==8.0.4  # A package for creating beautiful command line interfaces in a composable way
-commonmark==0.9.1  # Python parser for the CommonMark Markdown spec
-crispy-tailwind==0.5.0  # A crispy-forms layout helper for Tailwind CSS
-Django==3.2.25  # A high-level Python Web framework
-django-cors-headers==4.3.0  # Django app for handling the server headers required for Cross-Origin Resource Sharing (CORS)
-django-crispy-forms==1.13.0  # The best way to have Django DRY forms
-django-debug-toolbar==3.5.0  # A configurable set of panels displaying various debug information about the current request/response
-django-ipware==5.0.0  # A Django application to retrieve user's IP address
-django-storages==1.14.2  # A collection of custom storage backends for Django
-django-summernote @ https://github.com/alexdeathway/django-summernote/archive/refs/tags/patch-0.2.zip  #custom patched version Summernote WYSIWYG editor's package
-dnspython==2.6.1  # DNS toolkit for Python
-dparse==0.5.2  # A parser for Python dependency files
-dropbox==11.36.2  # Official Dropbox API Client
-eventlet==0.35.2  # Concurrent networking library for Python
-greenlet==3.0.1  # Lightweight in-process concurrent programming
-gunicorn==21.2.0  # WSGI HTTP Server for UNIX
-idna==3.7  # Internationalized Domain Names in Applications (IDNA)
-isort==5.10.1  # A Python utility / library to sort imports
-lazy-object-proxy==1.7.1  # A fast and thorough lazy object proxy
-mccabe==0.6.1  # McCabe checker, plugin for flake8
-mypy-extensions==0.4.3  # Experimental type system extensions for programs checked with the mypy typechecker
-packaging==21.3  # Core utilities for Python packages
-pathspec==0.9.0  # Utility library for gitignore style pattern matching of file paths
-Pillow==10.3.0  # Python Imaging Library (Fork)
-platformdirs==2.5.1  # Python library for determining appropriate platform-specific dirs
-ply==3.11  # Python Lex & Yacc
-podman-compose==1.0.3  # Script to allow using docker-compose with Podman
-psycopg2-binary==2.9.1  # PostgreSQL database adapter for Python
-Pygments==2.15.0  # Python syntax highlighter
-pylint==2.11.1  # Python code static checker
-pyparsing==3.0.7  # Python parsing module
-pytailwindcss==0.2.0  # A Python wrapper for the Tailwind CSS framework
-python-dotenv==0.19.2  # Add .env support to your django/flask apps in development and deployments
-pytz==2021.3  # World timezone definitions, modern and historical
-PyYAML==6.0  # YAML parser and emitter for Python
-requests==2.31.0  # Python HTTP for Humans
-rich==12.0.0  # Rich is a Python library for rich text and beautiful formatting in the terminal
-six==1.16.0  # Python 2 and 3 compatibility utilities
-sqlparse==0.4.4  # A non-validating SQL parser module for Python
-stone==3.3.1  # Python frontend for the Stone templating language
-toml==0.10.2  # Python Library for Tom's Obvious, Minimal Language
-tomli==2.0.1  # A lil' TOML parser
-typing_extensions==4.1.1  # Backported and Experimental Type Hints for Python
-urllib3==1.26.18  # HTTP library with thread-safe connection pooling, file post, and more
-webencodings==0.5.1  # Character encoding aliases for legacy web content
-whitenoise==6.6.0  # Radically simplified static file serving for Python web apps
-wrapt==1.13.3  # Module for decorators, wrappers and monkey patching
-boto3==1.33.8  # The AWS SDK for Python
-coverage==7.3.3  # Code coverage measurement for Python
+asgiref==3.4.1
+astroid==2.8.6
+asttokens==2.2.1
+black==24.3.0
+bleach==4.1.0
+certifi==2023.7.22
+charset-normalizer==3.3.1
+click==8.0.4
+commonmark==0.9.1
+crispy-tailwind==0.5.0
+Django==3.2.25
+django-cors-headers==4.3.0
+django-crispy-forms==1.13.0
+django-debug-toolbar==3.5.0
+django-ipware==5.0.0
+django-storages==1.14.2
+django-summernote @ https://github.com/alexdeathway/django-summernote/archive/refs/tags/patch-0.2.zip
+dnspython==2.6.1
+dparse==0.5.2
+dropbox==11.36.2
+eventlet==0.35.2
+greenlet==3.0.1
+gunicorn==21.2.0
+idna==3.7
+isort==5.10.1
+lazy-object-proxy==1.7.1
+mccabe==0.6.1
+mypy-extensions==0.4.3
+packaging==22.0
+pathspec==0.9.0
+Pillow==10.3.0
+platformdirs==2.5.1
+ply==3.11
+podman-compose==1.0.3
+psycopg2-binary==2.9.1
+Pygments==2.15.0
+pylint==2.11.1
+pyparsing==3.0.7
+pytailwindcss==0.2.0
+python-dotenv==0.19.2
+pytz==2021.3
+PyYAML==6.0
+requests==2.31.0
+rich==12.0.0
+six==1.16.0
+sqlparse==0.4.4
+stone==3.3.1
+toml==0.10.2
+tomli==2.0.1
+typing_extensions==4.1.1
+urllib3==1.26.18
+webencodings==0.5.1
+whitenoise==6.6.0
+wrapt==1.13.3
+boto3==1.33.8
+coverage==7.3.3
