@@ -48,7 +48,7 @@ stone==3.3.1
 toml==0.10.2
 tomli==2.0.1
 typing_extensions==4.1.1
-urllib3==1.26.18
+urllib3==1.26.19
 webencodings==0.5.1
 whitenoise==6.6.0
 wrapt==1.13.3
