@@ -59,14 +59,15 @@ services:
             - certbot_certs:/etc/letsencrypt/:ro
 
     certbot:
-            build:
-              context: ./certbot
-            command: certbot certonly --webroot --webroot-path "/vol/www/" -d "$DOMAIN" --email $EMAIL --rsa-key-size 4096 --agree-tos --noninteractive
-            depends_on:
-              - nginx
-            env_file:
-              - .env
-            volumes:
-              - certbot_web:/vol/www:rw
-              - certbot_certs:/etc/letsencrypt/:rw
+        container_name: k9archiver_certbot_production      
+        build:
+            context: ./certbot
+        depends_on:
+            - nginx
+        env_file:
+            - .env
+        volumes:
+            - certbot_web:/vol/www:rw
+            - certbot_certs:/etc/letsencrypt/:rw
+        restart: unless-stopped
             
