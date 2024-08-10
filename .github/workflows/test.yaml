@@ -21,7 +21,7 @@ jobs:
         run: cp template.env .env
 
       - name: Build and start Docker containers
-        run: docker-compose -f docker-compose.yml up -d --build 
+        run: docker compose -f docker-compose.yml up -d --build 
 
       - name: Wait for Django to start
         run: |
@@ -48,4 +48,4 @@ jobs:
         run: docker exec k9archiver_django python manage.py test
 
       - name: Stop and remove Docker containers
-        run: docker-compose down
+        run: docker compose down

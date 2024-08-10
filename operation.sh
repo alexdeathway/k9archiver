@@ -19,19 +19,19 @@ mkdir -p "$BACKUP_DIR/$COMMON_BACKUP_SUBDIR"
 
 
 backup_database() {
-    sudo docker exec "$POSTGRES_CONTAINER_NAME" pg_dumpall -U "$POSTGRES_USER"  > "$BACKUP_DIR/$COMMON_BACKUP_SUBDIR/$(date +'%Y%m%d%H%M%S')_postgres_backup.backup"
+    docker exec "$POSTGRES_CONTAINER_NAME" pg_dumpall -U "$POSTGRES_USER"  > "$BACKUP_DIR/$COMMON_BACKUP_SUBDIR/$(date +'%Y%m%d%H%M%S')_postgres_backup.backup"
 }
 
 backup_media() {
-    sudo docker exec "$MEDIA_CONTAINER_NAME" tar czf - /media/ > "$BACKUP_DIR/$COMMON_BACKUP_SUBDIR/$(date +'%Y%m%d%H%M%S')_media_backup.tar.gz"
+    docker exec "$MEDIA_CONTAINER_NAME" tar czf - /media/ > "$BACKUP_DIR/$COMMON_BACKUP_SUBDIR/$(date +'%Y%m%d%H%M%S')_media_backup.tar.gz"
 }
 
 
 # Deploy function
 deploy() {
     git pull origin master
-    sudo docker-compose down
-    sudo docker-compose -f docker-compose.prod.yml up -d --build
+    docker compose down
+    docker compose -f docker-compose.prod.yml up -d --build
 }
 
 # Check command-line argument
