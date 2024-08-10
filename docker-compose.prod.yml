@@ -11,6 +11,8 @@ volumes:
         name: k9archiver_certbot_web
     certbot_certs:
         name: k9archiver_certbot_certs
+    nginx_conf:
+        name: k9archiver_nginx_conf
 
 services:
     django:
@@ -57,6 +59,7 @@ services:
             - media_files:/app/media:ro
             - certbot_web:/vol/www:ro
             - certbot_certs:/etc/letsencrypt/:ro
+            - nginx_conf:/etc/nginx/:rw
 
     certbot:
         container_name: k9archiver_certbot_production      
@@ -69,5 +72,6 @@ services:
         volumes:
             - certbot_web:/vol/www:rw
             - certbot_certs:/etc/letsencrypt/:rw
+            - nginx_conf:/etc/nginx/:rw
         restart: unless-stopped
             
