@@ -23,7 +23,6 @@ if [ -f "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" ]; then
     echo "SSL cert exists, enabling HTTPS..."
     envsubst '${DOMAIN}' < /etc/nginx/nginx.prod.conf > /etc/nginx/conf.d/default.conf
     echo "Reloading Nginx configuration..."
-    nginx -s reload
 else
     echo "Certbot unable to get SSL cert,server HTTP only..."
 fi
