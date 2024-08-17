@@ -1,5 +1,3 @@
-version: "3.8"
-
 volumes:
     app_data:
         name: k9archiver_app_data
