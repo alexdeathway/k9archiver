@@ -70,6 +70,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'archiver.middleware.CacheIfSlowMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -265,4 +266,11 @@ if DEBUG:
         MEDIA_URL='/media/'
         STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
         DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-        
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+        'TIMEOUT': os.environ.get('CACHE_TIMEOUT', 60),  
+    }
+}
