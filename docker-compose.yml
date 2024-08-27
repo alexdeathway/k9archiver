@@ -1,8 +1,10 @@
 version: "3.8"
 
 volumes:
-    app_data:
-        name: k9archiver_app_data
+    app_data_django:
+        name: k9archiver_app_data_django
+    app_data_postgres:
+        name: k9archiver_app_data_postgres
     static_files:
         name: k9archiver_static_files
     media_files:
@@ -26,16 +28,12 @@ services:
             - .:/app
             - static_files:/app/staticfiles
             - media_files:/app/media
+            - app_data_django:/var/tmp/
 
     postgres:
         image: postgres:13.3-alpine
         container_name: k9archiver_postgres
         volumes:
-            - app_data:/var/lib/postgresql/data
-        #environment:
-        #    POSTGRES_PASSWORD: postgres
-        #    POSTGRES_USER: postgres
-        #    POSTGRES_DB: postgres
+            - app_data_postgres:/var/lib/postgresql/data
         env_file:
             - .env
-    

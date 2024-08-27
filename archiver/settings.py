@@ -70,6 +70,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'archiver.middleware.CacheIfSlowMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -232,6 +233,16 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+        'TIMEOUT': os.environ.get('CACHE_TIMEOUT', 60),  
+    }
+}
+
+
 #STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_ENDPOINT}/"
 #django debug toolbar and other settings for development
 if DEBUG:
@@ -265,4 +276,3 @@ if DEBUG:
         MEDIA_URL='/media/'
         STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
         DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-        
