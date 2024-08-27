@@ -52,6 +52,12 @@ class CacheIfSlowMiddleware(MiddlewareMixin):
 
         return response
 
+    def process_exception(self, request, exception):
+        if isinstance(exception, (Http404, PermissionDenied)):
+            #pass for now
+            return None
+        return None
+
     def regenerate_cache(self, path, view_name, view_args, view_kwargs):
         from django.test.client import RequestFactory
         from django.template.response import SimpleTemplateResponse
