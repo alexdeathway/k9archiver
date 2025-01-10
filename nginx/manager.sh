@@ -18,7 +18,7 @@ else
 fi
 
 # Monitor /etc/nginx/ and /etc/letsencrypt/ for configuration or SSL changes
-inotifywait -m -r -e modify,move,close_write,open /etc/nginx/conf.d/default.conf /etc/letsencrypt |
+inotifywait -m -r -e modify,move,close_write /etc/nginx/conf.d/default.conf /etc/letsencrypt |
 while read path action file; do
     echo "Change detected in $file: $action"
     echo "Reloading nginx!"
