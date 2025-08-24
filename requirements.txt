@@ -1,4 +1,4 @@
-asgiref==3.4.1
+asgiref>=3.6.0,<4
 astroid==2.8.6
 asttokens==2.2.1
 black==24.3.0

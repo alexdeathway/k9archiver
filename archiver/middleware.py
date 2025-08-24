@@ -1,3 +1,4 @@
+#this was experimental and not used in the final version of the project[dev-4.2.2-mdcache]
 import time
 import threading
 from django.core.cache import cache
@@ -18,6 +19,7 @@ class CacheIfSlowMiddleware(MiddlewareMixin):
 
         cached_response_content = cache.get(old_cache_key)
         if cached_response_content:
+            print(cached_response_content)
             request.cached_response = HttpResponse(cached_response_content)
 
         request.view_args = view_args

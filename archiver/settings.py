@@ -70,7 +70,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'archiver.middleware.CacheIfSlowMiddleware',
+    #'archiver.middleware.CacheIfSlowMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -210,8 +210,8 @@ SUMMERNOTE_CONFIG = {
 }
 
 
-#DEFAULT_FILE_STORAGE = 'archiver.storage_backend.MediaStorage'
-DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropboxStorage"
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropboxStorage"
 #STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  
 STATICFILES_STORAGE ="whitenoise.storage.CompressedManifestStaticFilesStorage"
 #dropbox settings
@@ -221,13 +221,12 @@ DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET')
 DROPBOX_OAUTH2_REFRESH_TOKEN=os.environ.get('DROPBOX_OAUTH2_REFRESH_TOKEN')
 
 #[V-dev4.1.0] AWS/Backblaze settings for Media Storage
-AWS_ACCESS_KEY_ID =os.environ.get('AWS_ACCESS_KEY_ID')             #b2 application key id if using backblaze'
-AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')     #your b2 application key
-AWS_STORAGE_BUCKET_NAME =os.environ.get('AWS_STORAGE_BUCKET_NAME') #'<a public bucket>'
-AWS_S3_REGION_NAME =os.environ.get('AWS_S3_REGION_NAME')           #'<your b2 region - e.g. us-west-001>'
-
-AWS_S3_ENDPOINT = f's3.{AWS_S3_REGION_NAME}.backblazeb2.com'
-AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_ENDPOINT}'
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
+AWS_S3_ACCESS_KEY_ID = os.getenv('AWS_S3_ACCESS_KEY_ID')
+AWS_S3_SECRET_ACCESS_KEY = os.getenv('AWS_S3_SECRET_ACCESS_KEY')
+AWS_S3_SIGNATURE_VERSION = os.getenv('AWS_S3_SIGNATURE_VERSION')
+AWS_S3_CUSTOM_DOMAIN = os.getenv('AWS_S3_CUSTOM_DOMAIN')
 
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
