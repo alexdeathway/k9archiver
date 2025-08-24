@@ -20,7 +20,7 @@ dparse==0.5.2
 dropbox==11.36.2
 eventlet==0.35.2
 greenlet==3.0.1
-gunicorn==22.0.0
+gunicorn==23.0.0
 idna==3.7
 isort==5.10.1
 lazy-object-proxy==1.7.1
