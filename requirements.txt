@@ -52,5 +52,6 @@ urllib3==2.5.0
 webencodings==0.5.1
 whitenoise==6.6.0
 wrapt==1.13.3
-boto3==1.33.8
+#boto3==1.33.8
+boto3==1.40.16
 coverage==7.3.3
