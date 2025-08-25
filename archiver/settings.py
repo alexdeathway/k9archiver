@@ -241,6 +241,7 @@ CACHES = {
     }
 }
 
+CSRF_TRUSTED_ORIGINS=os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
 
 #STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_ENDPOINT}/"
 #django debug toolbar and other settings for development
