@@ -18,7 +18,7 @@ django-summernote @ https://github.com/alexdeathway/django-summernote/archive/re
 dnspython==2.6.1
 dparse==0.5.2
 dropbox==11.36.2
-eventlet==0.35.2
+eventlet==0.40.3
 greenlet==3.0.1
 gunicorn==23.0.0
 idna==3.15
